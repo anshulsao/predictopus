@@ -11,7 +11,7 @@ return array(
         'type' => 'mysqli',
         'connection' => array(
             'hostname' => 'localhost',
-            'port' => '8889',
+            'port' => '3306',
             'database' => 'predictopus',
             'username' => 'root',
             'password' => 'root',
