@@ -1,0 +1,3 @@
+[submodule "vendor/php-mobile-detect"]
+	path = vendor/php-mobile-detect
+	url = git://github.com/serbanghita/Mobile-Detect.git
