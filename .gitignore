@@ -2,3 +2,4 @@ logs/
 cache/
 vendor/
 !.gitignore
+!php-mobile-detect
