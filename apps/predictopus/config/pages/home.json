@@ -1,0 +1,19 @@
+{
+    "default": {
+        "title": "Predictopus Home",
+        "slots": [           
+            {
+                "modules": [
+                    {
+                        "module": "fixtures",
+                        "params": {
+                            "tournamentId": 8
+                        }
+                    }
+                ],
+                "slot": "lslot2"
+            }
+        ]
+    }
+
+}

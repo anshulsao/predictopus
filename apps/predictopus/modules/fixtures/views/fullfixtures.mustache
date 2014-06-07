@@ -1,0 +1,32 @@
+
+<ul>
+    {{#fixtures}}
+    <li class='fx-stage'>
+        <div class='fx-title-gm pdh-15 bg mod-title'>{{title}} - {{dispStartDate}} {{#dispEndDate}} to {{dispEndDate}} {{/dispEndDate}}</div>
+        <ul>
+            {{#games}}
+            <li class='fx-game fnt-neg bg-neg'>
+                <div class='col-md-1 fx-time'>{{timeDisp}}</div>
+                <div class='col-md-7 fx-teams'>
+                    <span class='col-md-6'>
+                        <i class='flag {{team1Code}}'></i>
+                        <span class='fx-tmname'>{{{team1Name}}}</span>
+                    </span>
+                    <span class='col-md-6'>
+                        <i class='flag {{team2Code}}'></i>
+                        <span class='fx-tmname'>{{{team2Name}}}</span>  
+                    </span>
+                </div>
+                <div class='col-md-2 fx-venue'>
+                    <span>{{{groundTitle}}}</span>
+                </div>
+                <a class='col-md-2 fx-actions' href='/game/{{id}}'>
+                    <button type="button" class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} btn-xs">{{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
+                </a>
+            </li>
+            {{/games}}
+        </ul>
+
+    </li>
+    {{/fixtures}}
+</ul>

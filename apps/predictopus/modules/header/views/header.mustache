@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-7">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <div class="logo" >
+                <img src="/assets/img/logo.png">
+                <span>Predictopus</span>
+            </div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-7">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Predictome</a></li>
+            <li><a href="#">World Cup</a></li>
+            <li><a href="#">Leader Boards</a></li>
+        </ul>        
+        <ul class="nav navbar-nav navbar-right">
+            {{#loggedIn}}
+            <li>
+                <a href="" class="dropdown-toggle lgn-pp-cont" data-toggle="dropdown">
+                    <img src='{{profilePic}}' class='lgn-profile-pic'>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li role="presentation" class="dropdown-header">Hi {{name}}</li>
+                    <li class="divider"></li>
+                    <li><a href="" id='sign-out'>Sign out</a></li>
+                    <!--li class="divider"></li>
+                    <li><a href="#">Google</a></li-->
+                </ul>
+            </li>
+            {{/loggedIn}}
+            {{^loggedIn}}
+            <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" id='lgn-fb'><b class="fb-icon-29px"></b>Facebook</a></li>
+                    <!--li class="divider"></li>
+                    <li><a href="#">Google</a></li-->
+                </ul>
+            </li>
+            {{/loggedIn}}
+        </ul>
+    </div>
+
+
+</div>

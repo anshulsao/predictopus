@@ -1,0 +1,64 @@
+@import "sass/_base.scss";
+
+body {
+    font: $font-family;
+    color: $font-color;
+    font-weight: $font-weight;
+    min-height: 100%;
+    background: $theme-bg;
+}
+
+.fb-icon-29px{
+    width: 30px;
+    height: 20px;
+    float: left;
+    background-image: url("/assets/img/fb.png");
+    background-size: 20px;
+    background-repeat: no-repeat;
+}
+
+.pdh-15{
+    padding:0px 15px;
+}
+
+.pd-15{
+    padding:15px;
+}
+.pd-0{
+    padding:0px!important;
+}
+.mg-vert-md{
+    margin: 10px 0px 10px 0px;
+}
+
+.fnt-neg{
+    color: $font-color-contrast;
+}
+
+.bg{
+    background: $bg-color;
+}
+
+.bg-neg{
+    background: $bg-color-contrast;
+}
+
+.of-hid{
+    overflow:hidden;
+}
+
+.text-mid{
+    text-align: center;
+}
+
+.mod-title{
+    padding: 4px 15px;
+    font-size: 16px;
+    font-weight: 100;
+    margin: 1px 0px;
+}
+
+.fnt-h2 {
+    font-size: 25px!important;
+    font-weight: 200!important;
+}

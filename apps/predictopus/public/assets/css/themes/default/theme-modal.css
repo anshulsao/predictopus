@@ -1,0 +1,72 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2014, 12:42:51 AM
+    Author     : asao
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2014, 12:43:15 AM
+    Author     : asao
+*/
+/**
+* Logo
+*/
+body {
+  font: 13px/1.25 "Helvetica Neue", Helvetica, Arial;
+  color: white;
+  font-weight: 200;
+  min-height: 100%;
+  background: #3c4564; }
+
+.fb-icon-29px {
+  width: 30px;
+  height: 20px;
+  float: left;
+  background-image: url("/assets/img/fb.png");
+  background-size: 20px;
+  background-repeat: no-repeat; }
+
+.pdh-15 {
+  padding: 0px 15px; }
+
+.pd-15 {
+  padding: 15px; }
+
+.pd-0 {
+  padding: 0px !important; }
+
+.mg-vert-md {
+  margin: 10px 0px 10px 0px; }
+
+.fnt-neg {
+  color: black; }
+
+.bg {
+  background: #222222; }
+
+.bg-neg {
+  background: rgba(255, 255, 255, 0.8); }
+
+.of-hid {
+  overflow: hidden; }
+
+.text-mid {
+  text-align: center; }
+
+.mod-title {
+  padding: 4px 15px;
+  font-size: 16px;
+  font-weight: 100;
+  margin: 1px 0px; }
+
+.fnt-h2 {
+  font-size: 25px !important;
+  font-weight: 200 !important; }

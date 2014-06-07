@@ -1,0 +1,19 @@
+{
+    "default": {
+        "title": "Predictopus Game Page",
+        "slots": [
+            {
+                "modules": [
+                    {
+                        "module": "predictnow",
+                        "params": {
+                           
+                        }
+                    }
+                ],
+                "slot": "lslot1"
+            }
+        ]
+    }
+
+}

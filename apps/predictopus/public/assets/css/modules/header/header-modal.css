@@ -1,0 +1,43 @@
+/* 
+    Created on : May 30, 2014, 12:26:51 AM
+    Author     : asao
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2014, 12:42:51 AM
+    Author     : asao
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2014, 12:43:15 AM
+    Author     : asao
+*/
+/**
+* Logo
+*/
+#header .logo img {
+  height: 50px;
+  top: -5px;
+  position: relative; }
+#header .logo span {
+  font-family: fantasy; }
+  #header .logo span:hover {
+    text-decoration: none; }
+#header .navbar-brand {
+  padding: 0px 15px; }
+#header img.lgn-profile-pic {
+  max-height: 40px;
+  position: relative; }
+#header .lgn-pp-cont {
+  padding: 5px 10px; }
+
+body {
+  padding-top: 70px; }
