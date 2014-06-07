@@ -3,3 +3,4 @@ cache/
 vendor/
 !.gitignore
 !php-mobile-detect
+!/fuelfwk/fuel/packages/special_agent/vendor/
