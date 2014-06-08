@@ -12,6 +12,27 @@
                     }
                 ],
                 "slot": "lslot2"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "fifa/news",
+                        "params": {                           
+                        }
+                    }
+                ],
+                "slot": "rslot1"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "fifa/twitter",
+                        "params": {  
+                            "hashTag": ""
+                        }
+                    }
+                ],
+                "slot": "rslot2"
             }
         ]
     }

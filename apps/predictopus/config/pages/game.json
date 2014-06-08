@@ -23,6 +23,16 @@
                     }
                 ],
                 "slot": "lslot2"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "fifa/teams",
+                        "params": {                           
+                        }
+                    }
+                ],
+                "slot": "rslot1"
             }
         ]
     }
