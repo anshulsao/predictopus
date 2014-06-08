@@ -23,21 +23,23 @@ and open the template in the editor.
 /**
 * Logo
 */
-#header .logo img {
-  height: 50px;
-  top: -5px;
-  position: relative; }
-#header .logo span {
-  font-family: fantasy; }
-  #header .logo span:hover {
-    text-decoration: none; }
-#header .navbar-brand {
-  padding: 0px 15px; }
-#header img.lgn-profile-pic {
-  max-height: 40px;
-  position: relative; }
-#header .lgn-pp-cont {
-  padding: 5px 10px; }
+#header {
+  margin-top: 0px; }
+  #header .logo img {
+    height: 50px;
+    top: -5px;
+    position: relative; }
+  #header .logo span {
+    font-family: fantasy; }
+    #header .logo span:hover {
+      text-decoration: none; }
+  #header .navbar-brand {
+    padding: 0px 15px; }
+  #header img.lgn-profile-pic {
+    max-height: 40px;
+    position: relative; }
+  #header .lgn-pp-cont {
+    padding: 5px 10px; }
 
 body {
-  padding-top: 70px; }
+  padding-top: 50px; }

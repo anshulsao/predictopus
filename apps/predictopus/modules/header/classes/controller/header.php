@@ -16,19 +16,26 @@ class Controller_Header extends \Controller_ModuleBase {
         $name = false;
         $email = false;
         $profilePic = false;
-        if($isLoggedIn){
+        if ($isLoggedIn) {
             $name = \Auth\Auth::get_profile_fields('nickname');
             $email = \Auth\Auth::get('email');
             $profilePic = \Auth\Auth::get('profilepic');
         }
+        $uri = \Fuel\Core\Uri::main();
+
         $modData = array(
             "loggedIn" => $isLoggedIn,
             'name' => $name,
             'email' => $email,
             'profilePic' => $profilePic
         );
+        if (strstr($uri, 'world-cup')) {
+            $modData['isWC'] = true;
+        }else{
+            $modData['isHome'] = true;
+        }
         $data = array(
-            "moduleId" => '',
+            "moduleId" => 'header',
             "moduleClasses" => '',
             "content" => \View::forge('header.mustache', $modData),
             "js" => array('modules/login/login.js'),
