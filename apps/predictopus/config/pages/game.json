@@ -12,6 +12,17 @@
                     }
                 ],
                 "slot": "lslot1"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "comments/disqus",
+                        "params": {
+                           "title" :  "Discussions about the game"
+                        }
+                    }
+                ],
+                "slot": "lslot2"
             }
         ]
     }

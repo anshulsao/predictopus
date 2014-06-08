@@ -3,7 +3,17 @@
     <head>
         <?php require dirname(__FILE__) . '/commonhead.php' ?>
     </head>
-    <body class="<?php echo $bodyClasses ?>">
+    <body class="<?php echo $bodyClasses ?>">        
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=311171435643838&version=v2.0";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
         <div class="asa-content">            
             <nav id="header" class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation"> <?php echo $header ?> </nav>
             <div id='superlead' class='asa-full'><?php

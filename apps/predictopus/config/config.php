@@ -41,8 +41,12 @@ return array(
      * Set this to 'index.php if you don't use URL rewriting
      */
     // 'index_file' => false,
-     'profiling'  => true,
-
+    'profiling' => true,
+    'disqus_params' => array(
+        'forum' => 'predictopus',
+        'public_key' => 'u6xptgT0nNYJUjBoOzTu9izeSBgmGQY3duHTbQ2YTFg1yYpIzM0dHnhRVuGDKd6k',
+        'private_key' => 'qb5Gm3fWb313q2YOiZ3zNzBZOh7R0diwtEULPFqQE0ZDcPYipU8AH3Ro6aR0uLj7'
+    ),
     /**
      * Default location for the file cache
      */
