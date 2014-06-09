@@ -14,8 +14,9 @@ class Model_UserDataModel extends \Model_Base {
         if (empty($gameids)) {
             return array();
         }
-        if (empty($userid)) {
-            $userid = \Auth\Auth::get('id');
+        if (empty($userid) && GenUtility::isLoggedIn()) {
+            $user = \Auth::instance()->get_user_id();
+            $userid = $user[1];
         }
         if (empty($userid)) {
             return array();
