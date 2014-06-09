@@ -19,7 +19,7 @@
 <?php }?>
 
 <script>
-    YCustom.use('node', 'zap2it-services', function(Y) {
+    YCustom.use('node', function(Y) {
         Y.later(10, this, function() {<?php echo $inline; ?>
         });
     });

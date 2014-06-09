@@ -59,6 +59,7 @@ body {
     font-size: 16px;
     font-weight: 100;
     margin: 1px 0px;
+    text-align: left;
 }
 
 .fnt-h2 {
@@ -76,4 +77,9 @@ body {
 .mod-right-separater{
     width: 100%; 
     height: 10px;
+}
+
+.sticky {
+    position: fixed !important;
+    z-index: 250;
 }

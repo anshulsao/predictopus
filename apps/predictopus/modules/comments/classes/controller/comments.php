@@ -76,13 +76,11 @@ class Controller_Comments extends \Controller_ModuleBase {
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
         
-        Y.one("#comment-link").on("click",function() {
-            Y.one("#comment-main-div").toggleClass("z2t-hidden");
-        })
+       
 JS;
 
         $data = array(
-            "moduleId" => 'zap2it-comments',
+            "moduleId" => 'pd-comments',
             "moduleClasses" => '',
             "content" => \View::forge('comments.mustache'),
             "head" => '',

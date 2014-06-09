@@ -32,7 +32,7 @@ class Controller_Main extends Controller_Base {
         'tablet' => ''
     );
     private $css = array('bootstrap.min.css', 'themes/default/theme-modal.css');
-    private $js = array('bootstrap.min.js', 'mustache.js');
+    private $js = array('bootstrap.min.js', 'mustache.js', 'services.js');
     public static $isDev = false;
     private $moduleInlineJs = array();
     private $bodyClass = array();
