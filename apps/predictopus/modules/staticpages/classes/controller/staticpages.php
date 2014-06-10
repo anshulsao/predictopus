@@ -17,4 +17,16 @@ class Controller_StaticPages extends \Controller_ModuleBase {
         return $this->render($data);
     }
 
+    public function action_rules() {
+        $data = array(
+            "moduleId" => 'st-howtoplay',
+            "moduleClasses" => '',
+            "content" => \View::forge('gamingrules.html'),
+            "js" => array(''),
+            "css" => array('modules/fifa/fifa-modal.css'),
+            "inlineJs" => '',
+            "head" => 'Gaming Rules'
+        );
+        return $this->render($data);
+    }
 }
