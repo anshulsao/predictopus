@@ -5,13 +5,13 @@
             {
                 "modules": [
                     {
-                        "module": "fixtures",
+                        "module": "staticpages/home",
                         "params": {
-                            "tournamentId": 8
+
                         }
                     }
                 ],
-                "slot": "lslot2"
+                "slot": "superlead"
             }
         ]
     }

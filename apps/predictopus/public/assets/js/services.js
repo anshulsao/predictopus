@@ -171,7 +171,7 @@ YCustom.add('services', function(Y) {
                             placeHolderTopY, width);
                     break;
                 case STICK_BOTTOM:
-                    if (nodeBottomY > this._winObj.get("docHeight") - 50) {
+                    if (nodeBottomY > this._winObj.get("docHeight") - 70) {
                         return;
                     }
                     this.evaluateStickToBottom(node, nodeBottomY, windowBottomY,

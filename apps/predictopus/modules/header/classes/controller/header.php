@@ -31,7 +31,11 @@ class Controller_Header extends \Controller_ModuleBase {
         );
         if (strstr($uri, 'world-cup')) {
             $modData['isWC'] = true;
-        }else{
+        } else if (strstr($uri, 'rule')) {
+            $modData['isRules'] = true;
+        } else if (strstr($uri, 'how-to')) {
+            $modData['isHowTo'] = true;
+        }else {
             $modData['isHome'] = true;
         }
         $data = array(
