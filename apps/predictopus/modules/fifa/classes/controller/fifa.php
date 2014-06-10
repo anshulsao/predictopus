@@ -22,6 +22,19 @@ class Controller_Fifa extends \Controller_ModuleBase {
         return $this->render($data);
     }
     
+    public function action_standings() {
+        
+        $data = array(
+            "moduleId" => 'fifa-news',
+            "moduleClasses" => '',
+            "content" => \View::forge('standings.html'),
+            "js" => array(''),
+            "css" => array('modules/fifa/fifa-modal.css'),
+            "inlineJs" => '',
+        );
+        return $this->render($data);
+    }
+    
     public function action_teams() {
         $gameId = $this->getParam('gameid', 817);
         $model = \Model_OpenFootballModel::getInstance(8);

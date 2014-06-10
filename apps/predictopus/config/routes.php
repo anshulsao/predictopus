@@ -1,9 +1,12 @@
 <?php
 
 return array(
-    '_404_' => 'welcome/404', // The main 404 route	
+    '_404_' => 'main/index/404', // The main 404 route	
     '_root_' => 'main/index/home',
     'world-cup' => 'main/index/worldcup',
+    'dashboard' => 'main/index/dashboard',
+    'rules' => 'main/index/rules',
+    'how-to-play' => 'main/index/howtoplay',
     'world-cup/game/:gameid' => 'main/index/game',
     'combocss' => 'main/combo/css',
     'combojs' => 'main/combo/js',

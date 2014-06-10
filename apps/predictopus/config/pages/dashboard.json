@@ -1,0 +1,19 @@
+{
+    "default": {
+        "title": "Your Dashboard - Check your stats, standings and profile",
+        "slots": [           
+            
+            {
+                "modules": [
+                    {
+                        "module": "fifa/standings",
+                        "params": {                           
+                        }
+                    }
+                ],
+                "slot": "rslot1"
+            }
+        ]
+    }
+
+}
