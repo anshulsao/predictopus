@@ -27,6 +27,7 @@ class Controller_Fixtures extends \Controller_ModuleBase {
             "js" => array(''),
             "css" => array('flags.css'),
             "inlineJs" => '',
+            "head" => "Fixtures" 
         );
         return $this->render($data);
     }

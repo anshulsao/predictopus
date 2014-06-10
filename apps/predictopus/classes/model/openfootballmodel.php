@@ -75,7 +75,7 @@ class Model_OpenFootballModel extends \Model_Base {
                 }
             }
             $gameIds = array_keys($games2);
-            $predictions = Model_UserDataModel::getPredictions($gameIds);
+            $predictions = Model_UserDataModel::getPredictionsUser($gameIds);
             //logger(400,"*******: ". print_r($predictions, 1));
             foreach ($predictions as $prediction) {
                 $id = $prediction['game_id'];

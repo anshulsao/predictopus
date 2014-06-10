@@ -10,7 +10,21 @@ class Model_UserDataModel extends \Model_Base {
 
     const DB_NAME = 'local';
 
-    public static function getPredictions($gameids, $userid = '') {
+    public static function getPredictionsGame($gameid) {
+        try {
+            $table = DBConstants::TABLE_PREDICTIONS;
+            $query = Fuel\Core\DB::query("select * from $table where game_id=$gameid");
+            $predictions = $query->execute(self::DB_NAME)->as_array();
+            return $predictions;
+        } catch (Exception $e) {
+            logger(\Fuel\Core\Fuel::L_ERROR,
+                    "Error while getting prediction " . $e->getMessage(),
+                    __METHOD__);
+            return array();
+        }
+    }
+
+    public static function getPredictionsUser($gameids, $userid = '') {
         if (empty($gameids)) {
             return array();
         }
@@ -23,7 +37,8 @@ class Model_UserDataModel extends \Model_Base {
         }
         $gameidsStr = implode(',', $gameids);
         try {
-            $query = Fuel\Core\DB::query("select * from C_users_predictions where user_id=$userid and game_id IN ($gameidsStr)");
+            $table = DBConstants::TABLE_PREDICTIONS;
+            $query = Fuel\Core\DB::query("select * from $table where user_id=$userid and game_id IN ($gameidsStr)");
             $predictions = $query->execute(self::DB_NAME)->as_array();
             for ($i = 0; $i < count($predictions); $i ++) {
                 $predictions[$i]["prediction"] = json_decode($predictions[$i]["prediction"],
@@ -54,7 +69,8 @@ class Model_UserDataModel extends \Model_Base {
             return false;
         }
         try {
-            $query = Fuel\Core\DB::query("select * from C_users_predictions where user_id=$userid and game_id=$gameid");
+            $table = DBConstants::TABLE_PREDICTIONS;
+            $query = Fuel\Core\DB::query("select * from $table where user_id=$userid and game_id=$gameid");
             $prediction = $query->execute(self::DB_NAME)->as_array();
             if (count($prediction) > 0) {
                 $prediction[0]["prediction"] = json_decode($prediction[0]["prediction"],
@@ -86,17 +102,73 @@ class Model_UserDataModel extends \Model_Base {
             return false;
         }
         try {
+            $htsc1 = $predictions[DBConstants::DATA_HSCORE1];
+            $htsc2 = $predictions[DBConstants::DATA_HSCORE2];
+
+            $htResult = $htsc2 > $htsc1 ? 2 : $htsc2 < $htsc1 ? 1 : 0;
             Fuel\Core\DB::start_transaction(self::DB_NAME);
-            $query = Fuel\Core\DB::insert('C_users_predictions')->columns(array(
+            $query = Fuel\Core\DB::insert(DBConstants::TABLE_PREDICTIONS)->columns(array(
                         'user_id',
                         'game_id',
                         'result',
+                        'hresult',
                         'prediction'
                     ))->values(array(
                 $userid,
                 $gameid,
                 $result,
+                $htResult,
                 json_encode($predictions)
+            ));
+            $query->execute(self::DB_NAME);
+            Fuel\Core\DB::commit_transaction(self::DB_NAME);
+            return true;
+        } catch (Exception $e) {
+            Fuel\Core\DB::rollback_transaction(self::DB_NAME);
+            logger(\Fuel\Core\Fuel::L_ERROR,
+                    "Error while saving Predictions " . $e->getMessage(),
+                    __METHOD__);
+            return false;
+        }
+    }
+
+    public static function initializeUserScores($userid = '') {
+        if (empty($userid)) {
+            $userid = \Auth\Auth::get('id');
+        }
+        if (empty($userid)) {
+            return false;
+        }
+        try {
+            Fuel\Core\DB::start_transaction(self::DB_NAME);
+            $query = Fuel\Core\DB::query("insert into c_users_scores (user_id,points,metadata) values($userid,0,'{\"played\":\"0\", \"correct\":\"0\"}')");
+            $query->execute(self::DB_NAME);
+            Fuel\Core\DB::commit_transaction(self::DB_NAME);
+            return true;
+        } catch (Exception $e) {
+            Fuel\Core\DB::rollback_transaction(self::DB_NAME);
+            logger(\Fuel\Core\Fuel::L_ERROR,
+                    "Error while saving Predictions " . $e->getMessage(),
+                    __METHOD__);
+            return false;
+        }
+    }
+
+    public static function addUserToLeague($leagueid, $userid = '') {
+        if (empty($userid)) {
+            $userid = \Auth\Auth::get('id');
+        }
+        if (empty($userid)) {
+            return false;
+        }
+        try {
+            Fuel\Core\DB::start_transaction(self::DB_NAME);
+            $query = Fuel\Core\DB::insert(DBConstants::TABLE_USERS_LEAGUES)->columns(array(
+                        DBConstants::COL_LEAGUE_ID,
+                        DBConstants::COL_USER_ID,
+                    ))->values(array(
+                $leagueid,
+                $userid,
             ));
             $query->execute(self::DB_NAME);
             Fuel\Core\DB::commit_transaction(self::DB_NAME);

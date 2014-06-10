@@ -4,34 +4,6 @@ namespace Login;
 
 class Controller_Login extends \Controller_ModuleBase {
 
-    public function action_index() {
-        $loggedin = \Zap2it\Utils\Utils::isLoggedIn();
-        $name = '';
-        $email = '';
-        $profilePic = '';
-        if ($loggedin) {
-            $name = \Auth\Auth::get_profile_fields('nickname');
-            $email = \Auth\Auth::get('email');
-            $profilePic = \Auth\Auth::get('profilepic');
-        }
-        $modData = array(
-            "loggedin" => $loggedin,
-            "nickname" => $name,
-            "email" => $email,
-            "profile" => $profilePic,
-            "mobile" => \DeviceWrapper::is_mobileonly()
-        );
-        $data = array(
-            'moduleId' => 'login-mod',
-            'moduleClasses' => $name,
-            'content' => \View::forge('login.mustache', $modData),
-            'head' => '',
-            'js' => array('modules/login/login.js'),
-            'css' => array('')
-        );
-        return $this->render($data);
-    }
-
     const ALREADY_LOGGED_IN = "1000";
     const SUCCESS = "1001";
     const FAILED = "1002";
@@ -39,7 +11,6 @@ class Controller_Login extends \Controller_ModuleBase {
     public function action_xhrlogoutaction() {
         // remove the remember-me cookie, we logged-out on purpose
         \Auth::dont_remember_me();
-
         // logout
         \Auth::logout();
         return $this->jsonSuccess('logout Success');
@@ -47,8 +18,7 @@ class Controller_Login extends \Controller_ModuleBase {
 
     public function action_oauth($provider = null) {
         // bail out if we don't have an OAuth provider to call       
-        if ($provider === null) {
-            \Messages::error(__('login-no-provider-specified'));
+        if ($provider === null) {            
             \Response::redirect_back();
         }
         //logger(400, $_SERVER['HTTP_HOST']);
@@ -69,7 +39,7 @@ class Controller_Login extends \Controller_ModuleBase {
             // and process the callback
             try {
                 $status = $opauth->login_or_register();
-                logger(400, print_r($opauth, 1), __METHOD__);
+                //logger(400, print_r($opauth, 1), __METHOD__);
             } catch (\SimpleUserUpdateException $exc) {
                 // user is in database already. 
                 // ask for pwd to login                 
@@ -115,8 +85,6 @@ class Controller_Login extends \Controller_ModuleBase {
 
                 // we didn't know this provider login, but enough info was returned to auto-register the user
                 case 'registered':
-                    // inform the user the login using the provider was succesful, and we created a local account                                        
-                    // insert nickname and profile pic
                     \Auth\Auth::update_user(
                             array(
                                 'nickname' => $opauth->get('auth.info.first_name',
@@ -126,6 +94,7 @@ class Controller_Login extends \Controller_ModuleBase {
                                 'bdate' => $opauth->get('auth.raw.birthday', ''),
                             )
                     );
+                    self::addUserInSystem();
                     \Auth::remember_me();
                     break;
 
@@ -148,6 +117,13 @@ class Controller_Login extends \Controller_ModuleBase {
             // you should probably do something a bit more clean here...
             return "<script>window.close();</script>";
         }
+    }
+    
+    public static function addUserInSystem(){
+        // Add user to global league
+        $leagueid = \Fuel\Core\Config::get('global_league', 1);
+        \Model_UserDataModel::addUserToLeague($leagueid);
+        \Model_UserDataModel::initializeUserScores();
     }
 
 }
