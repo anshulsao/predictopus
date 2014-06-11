@@ -27,7 +27,8 @@ def install():
     sudo ('apt-get install php5-cli')
     sudo('apt-get install php5-mysql')
     sudo('apt-get install php5-sqlite')
-    sudo('apt-get install libapache2-mod-php5')
+    sudo('apt-get install libapache2-mod-php5') 
+    sudo('a2enmod rewrite')
 
 def bootstrap():
 #    sudo('mkdir /var/code')
