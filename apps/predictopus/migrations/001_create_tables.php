@@ -56,7 +56,7 @@ class Create_Tables {
                 'create_date' => array('type' => 'timestamp', ' default' => 'CURRENT_TIMESTAMP'),
                     ), array('league_id'));
             // Create a global league
-            \Fuel\Core\DB::insert('C_leagues')->columns(array('name', 'type', 'public'))->values(
+            \Fuel\Core\DB::insert('c_leagues')->columns(array('name', 'type', 'public'))->values(
                     array('Global League', 'System', 1))->execute('local');
         } catch (\Database_Exception $e) {
             // Table Creation failed...
