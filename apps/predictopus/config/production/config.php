@@ -12,8 +12,8 @@
  */
 return array(
     'cdn' => '//static.playpredictopus.com',
-    'cdnversion' => 'prod-11071333',
-    'profiling' => true,
+    'cdnversion' => 'prod-000001',
+    'profiling' => false,
     'disqus_params' => array(
         'forum' => 'predictopus',
         'public_key' => 'u6xptgT0nNYJUjBoOzTu9izeSBgmGQY3duHTbQ2YTFg1yYpIzM0dHnhRVuGDKd6k',
