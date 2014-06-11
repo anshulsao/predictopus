@@ -22,7 +22,7 @@ return array(
         'table_prefix' => '',
         'charset' => 'utf8',
         'enable_cache' => true,
-        'profiling' => false,
+        'profiling' => true,
         'readonly' => false,
     ),
     'lite' => array(
