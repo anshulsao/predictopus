@@ -15,7 +15,7 @@ use Zap2it\Utils\Utils;
 class HomePage extends \PageController {
   
     public function populateFields() {
-        $this->title = 'Home|Predictopus';
+        $this->title = 'Predictopus - Predict results FIFA Worldcup 2014, Game, Fun';
         $this->description = 'Right here is the perfect way to test your predictions and compete with thousands of others! It’s time to unleash the Predictopus within!';
         $this->image = 'http://static.playpredictopus.com/assets/img/logo.png';                
     }
