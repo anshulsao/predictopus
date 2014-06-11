@@ -23,29 +23,17 @@ abstract class PageController {
     protected $pageTitle;
     protected $htmlAttribs = '';
 
-    public function __construct($pageTitle = null) {
-        $this->pageTracking = new PageTracking();
-        $this->servers = \Fuel\Core\Config::get('servers');
-        $this->request = Fuel\Core\Request::main();
-        $this->makeParallelCalls();
-        $this->setPageTitle($pageTitle);
-        $this->addGenericTracking();
+    public function __construct($pageTitle = null) {        
+        $this->request = Fuel\Core\Request::main();       
+        $this->setPageTitle($pageTitle);       
         $this->populateFields();
-        $this->addPageTracking();
 
-        /*
-          $this->omnitureTracking->account = \Zap2it\Constants::OMNITURE_REPORT_SUITE_ID;
-          $this->omnitureTracking->dc = \Zap2it\Constants::OMNITURE_DATA_COLLECTION_SERVERS;
-          $this->omnitureTracking->trackingServer = \Zap2it\Constants::OMNITURE_TRACKING_SERVERS;
-          $this->omnitureTracking->trackingServerSecure = \Zap2it\Constants::OMNITURE_TRACKING_SECURE_SERVERS;
-         */
     }
 
     public function getHtmlAttribs() {
         return $this->htmlAttribs;
     }
 
-    public abstract function addPageTracking();
 
     protected function setPageTitle($pageTitle) {
         $this->pageTitle = $pageTitle;
@@ -55,50 +43,11 @@ abstract class PageController {
         return $this->pageTitle;
     }
 
-    private function addGenericTracking() {
-        $usr = 'u';
-        $gender = '';
-        $age = '';
-        $request = Fuel\Core\Request::main();
-        if (GenUtility::isLoggedIn()) {
-            $usr = 'r';
-            $gender = \Auth\Auth::get(Zap2it\Constants::USER_KEY_GENDER);
-            $gender = $gender == 'Male' ? 'm' : 'f';
-        }
-        AdsUtil::adTargeting($request, 'usr', $usr);
-        if (!empty($gender)) {
-            AdsUtil::adTargeting($request, 'gdr', $gender);
-        }
-    }
+    
 
     public abstract function populateFields();
 
-    public abstract function setTrackingParams($data);
-    /*
-     * Framework Error Handling Doc: http://fuelphp.com/docs/general/error.html
-     */
-
-    public function getTrackingParams($asJson = false) {
-        return $this->pageTracking->getTrackingParams($asJson);
-    }
-
-    public function handleError($response) {
-        switch ($response->getStatus()) {
-            case 200:
-                // Not checking for empty content, as this should be handled at the individaual page controller level
-                return $response->getBodyObjectJSON();
-
-            case 404:
-                throw new \Fuel\Core\HttpNotFoundException;
-
-            case 400:
-                throw new \Fuel\Core\HttpNotFoundException;
-
-            default :
-                return array();
-        }
-    }
-
+   
     public function getTitle() {
         return Fuel\Core\Security::strip_tags($this->title);
     }
@@ -146,8 +95,5 @@ abstract class PageController {
         return $social;
     }
 
-    public function makeParallelCalls() {
-        
-    }
 
 }

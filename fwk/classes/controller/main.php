@@ -159,8 +159,8 @@ class Controller_Main extends Controller_Base {
             $view->set('title', $pageController->getTitle());
             $view->set('description', $pageController->getDescription());
             $view->set('socialHeader', $pageController->getSocialHeader(), false);
-            $trackingValuesAsJson = $pageController->getTrackingParams(true);
-            $view->set('trackingParams', $trackingValuesAsJson, false);
+            //$trackingValuesAsJson = $pageController->getTrackingParams(true);
+            //$view->set('trackingParams', $trackingValuesAsJson, false);
             $view->set('htmlAttribs', $pageController->getHtmlAttribs(), false);
         } else {
             logger(\Fuel\Core\Fuel::L_DEBUG,

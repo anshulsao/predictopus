@@ -30,7 +30,7 @@ YCustom.later(10, window, function() {
             });
         }
         if (!Y.one('body').hasClass('.loggedin')) {
-            Y.all('#pn-submit, #hScore1, #hScore2, #fScore1, #fScore2, .pn-toolrow, #pn-login').on('click', function(e) {
+            Y.all('#pn-submit, #hScore1, #hScore2, #fScore1, #fScore2, .pn-toolrow, #pn-login, #hp-lgn').on('click', function(e) {
                 e.preventDefault();
                 $('#myModal').modal({
                     keyboard: true,

@@ -27,8 +27,9 @@ and open the template in the editor.
   margin-top: 0px; }
   #header .logo img {
     height: 50px;
-    top: -5px;
-    position: relative; }
+    top: 0px;
+    position: relative;
+    margin-right: 5px; }
   #header .logo span {
     font-family: fantasy; }
     #header .logo span:hover {

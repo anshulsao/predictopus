@@ -158,6 +158,9 @@ class RankUsers {
             $table = DBConstants::TABLE_USER_SCORES;
             $query = \Fuel\Core\DB::query("UPDATE $table SET points=$cumPoints, metadata='$json' WHERE user_id=$userid");
             $query->execute(DBConstants::DB_NAME);
+            $table = DBConstants::TABLE_RESULTS;
+            $query = \Fuel\Core\DB::query("UPDATE $table SET processed=1 WHERE game_id=$gameid");
+            $query->execute(DBConstants::DB_NAME);
             \Fuel\Core\DB::commit_transaction(DBConstants::DB_NAME);
             return true;
         } catch (Exception $e) {

@@ -10,6 +10,14 @@ class Model_UserDataModel extends \Model_Base {
 
     const DB_NAME = 'local';
 
+    public static function getUserRank($leagueId = 1) {
+        try{
+            
+        } catch (Exception $ex) {
+
+        }
+    }
+
     public static function getPredictionsGame($gameid) {
         try {
             $table = DBConstants::TABLE_PREDICTIONS;
