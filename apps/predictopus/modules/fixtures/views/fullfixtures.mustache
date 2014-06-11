@@ -5,23 +5,39 @@
         <div class='fx-title-gm pdh-15 bg mod-title'>{{title}} - {{dispStartDate}} {{#dispEndDate}} to {{dispEndDate}} {{/dispEndDate}}</div>
         <ul>
             {{#games}}
-            <li class='fx-game fnt-neg bg-neg'>
-                <div class='col-md-1 fx-time'>{{timeDisp}}</div>
-                <div class='col-md-7 fx-teams'>
-                    <span class='col-md-6'>
-                        <i class='flag {{team1Code}}'></i>
-                        <span class='fx-tmname'>{{{team1Name}}}</span>
-                    </span>
-                    <span class='col-md-6'>
-                        <i class='flag {{team2Code}}'></i>
-                        <span class='fx-tmname'>{{{team2Name}}}</span>  
-                    </span>
-                </div>
-                <div class='col-md-2 fx-venue'>
-                    <span>{{{groundTitle}}}</span>
-                </div>
-                <a class='col-md-2 fx-actions' href='/world-cup/game/{{id}}'>
-                    <button type="button" class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} btn-xs">{{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
+            <li class='fx-game fnt-neg bg-neg col-sm-12'>
+                <a href='/world-cup/game/{{id}}' class='fnt-neg'>
+                    <div class="row">
+                        <div class='col-sm-1 fx-time'>{{timeDisp}}</div>
+                        <div class='col-sm-7 fx-teams'>
+                            <span class='col-sm-6'>
+                                <i class='flag {{team1Code}}'></i>
+                                <span class='fx-tmname'>{{{team1Name}}}</span>
+                            </span>
+                            <span class='col-sm-6'>
+                                <i class='flag {{team2Code}}'></i>
+                                <span class='fx-tmname'>{{{team2Name}}}</span>  
+                            </span>
+                        </div>
+                        <div class='col-sm-2 fx-venue'>
+                            <span>{{{groundTitle}}}</span>
+                        </div>
+                        <div class='col-sm-2 fx-actions' href='/world-cup/game/{{id}}'>
+                            <button type="button" class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} btn-xs {{#p}}{{#processed}}hidden{{/processed}}{{/p}}">{{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
+                            {{#p}}{{#processed}}
+                            <span class='btn btn-default btn-xs'>Match over</span>
+                            {{/processed}}{{/p}}
+                        </div>
+                    </div>
+                    {{#p}}{{#prediction}}
+                    <div class="label label-success col-sm-offset-1">
+                        Your Predictions - {{#hScore1}}Half Time: {{hScore1}}-{{hScore2}}{{/hScore1}} Full Time: {{fScore1}}-{{fScore2}}
+                    </div>
+                    {{#processed}}
+                    <span class='label label-primary'>{{points}} Points</span>
+                    {{/processed}}
+                    {{/prediction}}
+                    {{/p}}
                 </a>
             </li>
             {{/games}}

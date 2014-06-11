@@ -55,6 +55,10 @@ body {
 .fnt-neg {
   color: black; }
 
+.fnt-neg-info {
+  font-weight: bold;
+  font-style: italic; }
+
 .bg {
   background: #222222; }
 

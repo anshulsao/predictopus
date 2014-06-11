@@ -3,9 +3,9 @@ YCustom.later(10, window, function() {
 
         var SAVE_PREF_URL = '/predictnow/_xhr/save';
         var templates = {
-            'all': 'You have predicted that {{^teamW}} the match will be a draw{{/teamW}} {{#teamW}}{{{teamW}}}' +
-                    ' will win {{/teamW}}{{#hScore}}, half time score will be {{hScore}}{{/hScore}}' +
-                    '{{#fScore}} and the full time score will be {{fScore}}{{/fScore}}.',
+            'all': 'You predicted that {{^teamW}} the match will be a draw{{/teamW}} {{#teamW}}<strong>{{{teamW}}}</strong>' +
+                    ' will win {{/teamW}}{{#hScore}}, half time score will be <strong>{{hScore}}</strong>{{/hScore}}' +
+                    '{{#fScore}} and the full time score will be <strong>{{fScore}}</strong>{{/fScore}}.',
         };
         var submit = Y.one('#pn-submit');
         var hScore1Ele = Y.one('#hScore1');
@@ -30,11 +30,11 @@ YCustom.later(10, window, function() {
             var fScore2 = fScore2Ele.get('value');
             var hScore = hScore1 && hScore2 ? hScore1 + " - " + hScore2 : '';
             var fScore = fScore1 && fScore2 ? fScore1 + " - " + fScore2 : '';
-            var winningELe = Y.one('input[name=winner]:checked');
             debugger;
-            if (validate(hScore1, hScore2, fScore1, fScore2, winningELe)) {
-                var teamW = winningELe.getAttribute('data-val');
-                var result = winningELe.getAttribute('data-id');
+            if (validate(hScore1, hScore2, fScore1, fScore2)) {
+                var result = fScore1 > fScore2 ? 1 : fScore1 < fScore2 ? 2 : 0;
+                // team1/2Global vars set in mustache
+                var teamW = result == 1 ? team1 : result == 2 ? team2 : 0;
                 var template = templates['all'];
                 var data = {
                     'hScore': hScore,
@@ -60,7 +60,7 @@ YCustom.later(10, window, function() {
                                 var resO = Y.JSON.parse(res);
                                 if (resO.status == "error") {
                                     showMessage(resO.message, 'error');
-                                } else{
+                                } else {
                                     submit.setHTML('Edit Prediction');
                                 }
                             }
@@ -93,11 +93,12 @@ YCustom.later(10, window, function() {
          * @param {type} winningELe
          * @returns {Boolean}
          */
-        function validate(hScore1, hScore2, fScore1, fScore2, winningELe) {
+        function validate(hScore1, hScore2, fScore1, fScore2) {
             var error = false;
-            if (!winningELe) {
-                error = 'You need to select the match result to predict.';
-            } else if ((fScore1 !== '' && fScore1 < hScore1) ||
+            if(!fScore1 || !fScore2){
+                error = 'Full time score prediction is mandatory.';
+            }
+            if ((fScore1 !== '' && fScore1 < hScore1) ||
                     (fScore2 !== '' && fScore2 < hScore2)) {
                 error = 'Full time score cannot be less than half time score.';
             }

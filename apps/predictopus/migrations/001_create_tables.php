@@ -31,6 +31,7 @@ class Create_Tables {
                 'hresult' => array('type' => 'int', 'constraint' => 4),
                 'prediction' => array('type' => 'blob', 'default' => ''),
                 'points' => array('type' => 'bigint', 'constraint' => 20),
+                'processed' => array('type' => 'tinyint', 'constraint' => 1, 'default' => '0'),
                 'modified_date' => array('type' => 'timestamp', ' default' => 'CURRENT_TIMESTAMP'),
                     ), array('id'));
             \DBUtil::create_index(self::USERTABLE . '_predictions',

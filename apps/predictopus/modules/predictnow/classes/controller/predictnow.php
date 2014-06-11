@@ -11,8 +11,16 @@ class Controller_Predictnow extends \Controller_ModuleBase {
         $game = $model->getGameDetails($gameId);
         $prediction = \Model_UserDataModel::getPrediction($gameId);
         $game['p'] = $prediction;
+        $time = strtotime($game['time']) - 3*60*60;
+        $disabled = false;
+        if($time < strtotime("now")){
+            $disabled = true;            
+        }
+        //logger(\Fuel\Core\Fuel::L_DEBUG, "--- " .strtotime("now"), __METHOD__);
+        // check if time has passed if yes set disabled=true;
         $modData = array(
-            'game' => $game,            
+            'game' => $game,  
+            'timeover' => $disabled
         );
         logger(400, print_r($modData, 1));
         $data = array(

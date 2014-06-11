@@ -80,7 +80,7 @@ class Model_OpenFootballModel extends \Model_Base {
             foreach ($predictions as $prediction) {
                 $id = $prediction['game_id'];
                 $game = &$games2[$id];
-                $game['p'] = 1;
+                $game['p'] = $prediction;
                 logger(400,"*******: ". print_r($game, 1));
                 
             }

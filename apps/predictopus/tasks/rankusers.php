@@ -13,6 +13,7 @@ use \DBConstants;
 class RankUsers {
 
     public static function run() {
+        echo 'Starting Ranking';
         $results = self::getUnprocessedResults();
         if ($results) {
             foreach ($results as $result) {
@@ -103,7 +104,12 @@ class RankUsers {
             $score = $Score_FT * 30 + $Score_HT * 15;
             echo "Points for user $user_id : $score HT-> $T1_HT_P - $T2_HT_P ($T1_HT - $T2_HT) FT-> $T1_FT_P - $T2_FT_P ($T1_FT - $T2_FT)\n ";
             //update score
-            self::updateUserPoints($user_id, $gameid, $score);            
+            $user_predictions['ahScore1'] = $T1_HT;
+            $user_predictions['ahScore2'] = $T2_HT;
+            $user_predictions['afScore1'] = $T1_FT;
+            $user_predictions['afScore2'] = $T2_FT;
+            self::updateUserPoints($user_id, $gameid, $score,
+                    json_encode($user_predictions));
         }
         self::updateLeagueRanks();
     }
@@ -111,7 +117,7 @@ class RankUsers {
     public static function updateLeagueRanks() {
         try {
             \Fuel\Core\DB::start_transaction(DBConstants::DB_NAME);
-            
+
             \Fuel\Core\DB::commit_transaction(DBConstants::DB_NAME);
         } catch (Exception $e) {
             \Fuel\Core\DB::rollback_transaction(DBConstants::DB_NAME);
@@ -129,12 +135,13 @@ class RankUsers {
      * @param type $score
      * @return boolean
      */
-    private static function updateUserPoints($userid, $gameid, $score) {
+    private static function updateUserPoints($userid, $gameid, $score,
+            $predictions) {
         try {
             \Model_UserDataModel::initializeUserScores($userid);
             \Fuel\Core\DB::start_transaction(DBConstants::DB_NAME);
             $table = DBConstants::TABLE_PREDICTIONS;
-            $query = \Fuel\Core\DB::query("UPDATE $table SET points=$score WHERE user_id=$userid && game_id=$gameid");
+            $query = \Fuel\Core\DB::query("UPDATE $table SET points=$score, processed=1, prediction='$predictions' WHERE user_id=$userid && game_id=$gameid");
             $query->execute(DBConstants::DB_NAME);
             $userQuery = \Fuel\Core\DB::query("select * from c_users_scores where user_id=$userid");
             $results = $userQuery->execute(DBConstants::DB_NAME)->as_array();

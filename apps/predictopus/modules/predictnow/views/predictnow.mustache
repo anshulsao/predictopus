@@ -10,31 +10,52 @@
         <img class='pn-badge' src='http://static.playpredictopus.com/assets/img/badges/{{team2Code}}.png'>
         <h2 class='fnt-h2'>{{{team2Name}}}</h2>
     </div>
-    <div class='col-md-12 text-mid pn-tools'>
-        <div class="btn-group pn-toolrow" data-toggle="buttons">
-            <label class="btn btn-default col-md-4 {{#p}}{{#team1W}}active{{/team1W}}{{/p}}">
-                <input type="radio" name='winner' data-val='{{{team1Name}}}' data-id='1' {{#p}}{{#team1W}}checked{{/team1W}}{{/p}}>Win</label>
-            <label class="btn btn-default col-md-4 {{#p}}{{#draw}}active{{/draw}}{{/p}}">
-                <input type="radio" name='winner' data-val='' data-id='0' {{#p}}{{#draw}}checked{{/draw}}{{/p}}>Draw</label>
-            <label class="btn btn-default col-md-4 {{#p}}{{#team2W}}active{{/team2W}}{{/p}}">
-                <input type="radio" name='winner' data-val='{{{team2Name}}}' data-id='2' {{#p}}{{#team2W}}checked{{/team2W}}{{/p}}>Win</label>
-        </div>      
-        <div class="input-group pn-toolrow">
-            <input id='hScore1' type="number" value="{{#p}}{{#prediction}}{{hScore1}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Half time goals for {{{team1Name}}}">
+    <script>
+        var team1 = '{{{team1Name}}}', team2 = '{{{team2Name}}}';
+    </script>
+
+    <div class='col-md-12 text-mid pn-tools'>Your Prediction</div>
+    <div class='col-md-12 text-mid pn-tools'>             
+        <div class="input-group pn-toolrow    {{#p}}{{#processed}}hidden{{/processed}}{{/p}}">
+            <input id='hScore1' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{hScore1}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Half time goals for {{{team1Name}}} (optional)">
             <span class="input-group-addon">-</span>
-            <input id='hScore2' type="number" value="{{#p}}{{#prediction}}{{hScore2}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Half time goals for {{{team2Name}}}">
+            <input id='hScore2' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{hScore2}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Half time goals for {{{team2Name}}} (optional)">
         </div>
-        <div class="input-group pn-toolrow">
-            <input id='fScore1' type="number" value="{{#p}}{{#prediction}}{{fScore1}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Full time goals for {{{team1Name}}}">
+        <div class="input-group pn-toolrow {{#p}}{{#processed}}hidden{{/processed}}{{/p}}">
+            <input id='fScore1' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{fScore1}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Full time goals for {{{team1Name}}}">
             <span class="input-group-addon">-</span>
-            <input id='fScore2' type="number" value="{{#p}}{{#prediction}}{{fScore2}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Full time goals for {{{team2Name}}}">
+            <input id='fScore2' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{fScore2}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Full time goals for {{{team2Name}}}">
         </div>
         <div class="alert alert-danger hidden pn-toolrow" id='pn-errorDiv'></div>
         <div class="alert alert-info hidden pn-toolrow" id='pn-infoDiv'></div>
     </div>
+
+    {{#p}}
+    {{#processed}}
+    <div class='col-md-12 text-mid pn-tools'>Actual Score (Your Prediction)</div>
+    <div class='col-md-12 text-mid pn-tools'>             
+        <div class="input-group pn-toolrow">
+            <input id='ahScore1' disabled type="text" value='{{#prediction}}{{ahScore1}} ({{hScore1}}){{/prediction}}' class="form-control text-mid">
+            <span class="input-group-addon">-</span>
+            <input id='ahScore2' disabled type="text" value='{{#prediction}}{{ahScore2}} ({{hScore2}}){{/prediction}}' class="form-control text-mid">
+        </div>
+        <div class="input-group pn-toolrow">
+            <input id='ahScore1' disabled type="text" value='{{#prediction}}{{afScore1}} ({{fScore1}}){{/prediction}}' class="form-control text-mid">
+            <span class="input-group-addon">-</span>
+            <input id='ahScore2' disabled type="text" value='{{#prediction}}{{afScore2}} ({{fScore2}}){{/prediction}}' class="form-control text-mid">
+        </div>
+        <div class="alert alert-danger hidden pn-toolrow" id='pn-errorDiv'></div>
+        <div class="alert alert-info hidden pn-toolrow" id='pn-infoDiv'></div>
+    </div>
+    {{/processed}}
+    {{/p}}
     <div class='col-md-12 text-mid'>
-        <button type="button" id='pn-submit' {{#p}}data-show-summary='1'{{/p}} class="btn btn-primary btn-sm" data-gameid="{{id}}">{{^p}}Save{{/p}}{{#p}}Edit{{/p}} Prediction</button>
+        
+        <button type="button" {{#timeover}}disabled{{/timeover}} id='pn-submit' 
+                {{#p}}data-show-summary='1'{{/p}} class="btn btn-primary btn-sm" data-gameid="{{id}}">
+                {{^p}}Save{{/p}}{{#p}}Edit{{/p}} Prediction{{#timeover}} - Oops Too Late{{/timeover}}</button>
         <button type="button" id='pn-login' class="btn btn-primary btn-sm">Login to Predict</button>
+        
     </div>
 </div>
 {{/game}}

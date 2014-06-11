@@ -9,10 +9,20 @@
         padding: 0;
         margin: 0;
     }    
-    li.fx-game{
-        padding: 15px;
+    li.fx-game{        
         margin: 1px 0px;
         overflow: hidden;
+        &:hover{
+            background: white;
+            cursor: pointer;
+        }
+        a{
+            padding: 15px;
+            display: block;
+            width: 100%;
+            overflow: hidden;
+
+        }
     }
     .fx-teams{ 
         .flag{
@@ -25,5 +35,24 @@
         .fx-tmname{
             margin-left:50px;
         }
+    }
+    .w-team-1{
+        .tm-1{
+            font-size: 110%;
+            color: green;
+            font-weight: bold;                
+        }
+    }
+    .w-team-2{
+        .tm-2{
+            font-size: 110%;
+            color: green;
+            font-weight: bold;   
+        }
+    }
+    .label{
+        display: inline-block;
+        margin-top: 15px;
+        margin-right:5px;
     }
 }
