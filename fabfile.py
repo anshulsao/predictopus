@@ -10,7 +10,8 @@ env.remote_interrupt = True
 
 # Final machines in farm
 env.hosts = [
-    'ec2-54-85-1-232.compute-1.amazonaws.com' #Predictopus01 East Virginia
+    'ec2-54-85-1-232.compute-1.amazonaws.com', #Predictopus01 East Virginia
+    'ec2-54-209-127-43.compute-1.amazonaws.com'
 ]
 
 env.LOG = '`ls -Rrt /var/code/apps/predictopus/logs/2014//*/*.php | tail -1`'

@@ -4,7 +4,10 @@
 	ServerAdmin webmaster@localhost
 	#SetEnv FUEL_ENV production
 	DocumentRoot /var/www/predictopus/
-      
+        RewriteEngine On     
+
+        RewriteCond %{HTTP_HOST} ^playpredictopus.com [NC]
+        RewriteRule ^(.*)$ http://www.playpredictopus.com$1 [L,R=301]
 	<Directory /var/www/predictopus/>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride All
