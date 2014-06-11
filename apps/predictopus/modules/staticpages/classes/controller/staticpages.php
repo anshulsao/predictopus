@@ -28,6 +28,17 @@ class Controller_StaticPages extends \Controller_ModuleBase {
         );
         return $this->render($data);
     }
+    public function action_notfound() {
+        $data = array(
+            "moduleId" => 'st-home',
+            "moduleClasses" => '',
+            "content" => \View::forge('home.html'),
+            "js" => array(''),
+            "css" => array('modules/staticpages/static-modal.css'),
+            "inlineJs" => '',
+        );
+        return '<img src="/assets/img/404.png" style="margin: auto;max-width: 400px;top: -66px;position: relative;">';
+    }
     public function action_rules() {
         $data = array(
             "moduleId" => 'st-howtoplay',

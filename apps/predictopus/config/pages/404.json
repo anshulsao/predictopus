@@ -1,0 +1,20 @@
+{
+    "default": {
+        "title": "Predictopus Home",
+        "slots": [           
+            {
+                "modules": [
+                    {
+                        "module": "staticpages/notfound",
+                        "params": {
+
+                        }
+                    }
+                ],
+                "slot": "superlead"
+            }
+        ],
+        "controller": "Page\\HomePage"
+    }
+
+}

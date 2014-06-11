@@ -27,7 +27,7 @@ class Controller_Fixtures extends \Controller_ModuleBase {
             "js" => array(''),
             "css" => array('flags.css'),
             "inlineJs" => '',
-            "head" => "Fixtures" 
+            "head" => "FIFA World Cup 2014" 
         );
         return $this->render($data);
     }
