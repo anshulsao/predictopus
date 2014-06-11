@@ -14,3 +14,10 @@
         margin: 5px auto;
     }
 }
+
+.loggedout #pn-submit{
+    display:none;
+}
+.loggedin #pn-login{
+    display: none;
+}

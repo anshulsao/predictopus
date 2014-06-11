@@ -1,7 +1,8 @@
 YCustom.later(10, window, function() {
     YCustom.use('node', 'io', 'json-parse', function(Y) {
 
-        var fbLogin = Y.one("#lgn-fb");
+        var fbLogin = Y.all("#lgn-fb, #fb-lgn-modal");
+        var logoutText = Y.one("#sign-out");
 
         var host = window.location.host;
         try {
@@ -9,8 +10,34 @@ YCustom.later(10, window, function() {
         } catch (e) {
 
         }
+        Y.Global.on("global-fb-login", function(e) {
+            triggerProviderLogin();
+        });
 
-
+        if (logoutText) {
+            logoutText.on("click", function(e) {
+                e.preventDefault();
+                var cfg = {
+                    method: "POST",
+                    on: {
+                        success: function() {
+                            window.location.href = window.location.origin + window.location.pathname;
+                        }
+                    }
+                };
+                var url = "/login/_xhr/logoutaction";
+                Y.io(url, cfg);
+            });
+        }
+        if (!Y.one('body').hasClass('.loggedin')) {
+            Y.all('#pn-submit, #hScore1, #hScore2, #fScore1, #fScore2, .pn-toolrow, #pn-login').on('click', function(e) {
+                e.preventDefault();
+                $('#myModal').modal({
+                    keyboard: true,
+                    backdrop: false
+                });
+            });
+        }
         function triggerProviderLogin() {
             var url = "http://" + host + "/login/oauth/facebook";
             var winObj = Y.one(window)

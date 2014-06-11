@@ -43,3 +43,13 @@ and open the template in the editor.
 
 body {
   padding-top: 50px; }
+
+img.fb-login {
+  max-height: 40px; }
+
+span.lgn-mod-text {
+  margin-left: 20px;
+  font-style: oblique; }
+
+div.modal-dialog {
+  margin-top: 100px !important; }
