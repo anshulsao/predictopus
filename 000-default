@@ -1,5 +1,6 @@
 #file to be present at this path /etc/apache2/sites-enabled/000-default
 <VirtualHost *:80>
+        SetEnv FUEL_ENV production
 	ServerAdmin webmaster@localhost
 	#SetEnv FUEL_ENV production
 	DocumentRoot /var/www/predictopus/
