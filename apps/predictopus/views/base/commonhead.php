@@ -16,6 +16,7 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 }
 ?>
 <script type="text/javascript" src="<?php echo $yuiPath; ?>"></script>
+<link rel="icon" type="image/png" href="/favicon.ico" />
 <script>
     if (!window.YCustom) {
         var YCustom = YUI({<?php
