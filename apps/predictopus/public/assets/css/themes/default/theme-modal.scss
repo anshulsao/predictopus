@@ -12,9 +12,14 @@ body {
     width: 30px;
     height: 20px;
     float: left;
-    background-image: url("/assets/img/fb.png");
+    background-image: url($cdn + "/assets/img/fb.png" + $version);
     background-size: 20px;
     background-repeat: no-repeat;
+}
+.flag {
+    background:url($cdn + "/assets/img/flags.png"+ $version) no-repeat;
+    display: inline-block;
+    width: 42px; height: 28px;
 }
 
 .pdh-15{

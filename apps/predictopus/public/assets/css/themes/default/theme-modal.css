@@ -30,9 +30,15 @@ body {
   width: 30px;
   height: 20px;
   float: left;
-  background-image: url("/assets/img/fb.png");
+  background-image: url("http://static.playpredictopus.com/assets/img/fb.png?prod-1");
   background-size: 20px;
   background-repeat: no-repeat; }
+
+.flag {
+  background: url("http://static.playpredictopus.com/assets/img/flags.png?prod-1") no-repeat;
+  display: inline-block;
+  width: 42px;
+  height: 28px; }
 
 .pdh-15 {
   padding: 0px 15px; }

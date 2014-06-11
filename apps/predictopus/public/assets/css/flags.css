@@ -1,9 +1,3 @@
-.flag {
-  background: url(/assets/img/flags.png) no-repeat;
-  display: inline-block;
-  width: 42px;
-  height: 28px; }
-
 .flag.alg {
   background-position: 0px 0px; }
 

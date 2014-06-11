@@ -11,7 +11,7 @@
  * @link       http://fuelphp.com
  */
 return array(
-    'cdn' => '//d3vl9vbv6kvxei.cloudfront.net',
+    'cdn' => '//static.playpredictopus.com',
     'cdnversion' => 'prod-11071333',
     'profiling' => false,
     'disqus_params' => array(
