@@ -27,7 +27,7 @@
             <input id='fScore2' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{fScore2}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Full time goals for {{{team2Name}}}">
         </div>
         <div class="alert alert-danger hidden pn-toolrow" id='pn-errorDiv'></div>
-        <div class="alert alert-info hidden pn-toolrow" id='pn-infoDiv'></div>
+        <div class="alert alert-success hidden pn-toolrow" id='pn-infoDiv'></div>
     </div>
 
     {{#p}}
@@ -45,7 +45,7 @@
             <input id='ahScore2' disabled type="text" value='{{#prediction}}{{afScore2}} ({{fScore2}}){{/prediction}}' class="form-control text-mid">
         </div>
         <div class="alert alert-danger hidden pn-toolrow" id='pn-errorDiv'></div>
-        <div class="alert alert-info hidden pn-toolrow" id='pn-infoDiv'></div>
+        <div class="alert alert-success hidden pn-toolrow" id='pn-infoDiv'></div>
     </div>
     {{/processed}}
     {{/p}}
