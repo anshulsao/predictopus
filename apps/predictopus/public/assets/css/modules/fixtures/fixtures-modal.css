@@ -6,13 +6,13 @@
   list-style: none;
   padding: 0;
   margin: 0; }
-#full-fixtures li.fx-game {
+#full-fixtures .fx-game {
   margin: 1px 0px;
   overflow: hidden; }
-  #full-fixtures li.fx-game:hover {
+  #full-fixtures .fx-game:hover {
     background: white;
     cursor: pointer; }
-  #full-fixtures li.fx-game a {
+  #full-fixtures .fx-game a {
     padding: 15px;
     display: block;
     width: 100%;

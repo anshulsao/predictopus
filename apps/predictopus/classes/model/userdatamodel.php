@@ -8,13 +8,58 @@
 
 class Model_UserDataModel extends \Model_Base {
 
-    const DB_NAME = 'local';
+    const DB_NAME = 'local';    
 
-    public static function getUserRank($leagueId = 1) {
-        try{
-            
+    public static function getLeagueStats($userid = '') {
+        try {
+            if (empty($userid) && GenUtility::isLoggedIn()) {
+                $user = \Auth::instance()->get_user_id();
+                $userid = $user[1];
+            }
+            if (empty($userid)) {
+                return array();
+            }
+            $query = Fuel\Core\DB::query("select * from c_rel_users_league left join c_leagues on c_rel_users_league.league_id = c_leagues.league_id where user_id = $userid;");
+            $leagues = $query->execute(self::DB_NAME)->as_array();                        
+            return $leagues;
+        } catch (Exception $e) {
+            logger(\Fuel\Core\Fuel::L_ERROR,
+                    "Error while getting user Scores " . $e->getMessage(),
+                    __METHOD__);
+            return array();
+        }
+    }
+
+    public static function getUserStats($userid = '') {
+        try {
+            if (empty($userid) && GenUtility::isLoggedIn()) {
+                $user = \Auth::instance()->get_user_id();
+                $userid = $user[1];
+            }
+            if (empty($userid)) {
+                return array();
+            }
+            $table = DBConstants::TABLE_USER_SCORES;
+            $query = Fuel\Core\DB::query("select * from $table where user_id=$userid");
+            $scores = $query->execute(self::DB_NAME)->as_array();
+            if (count($scores) > 0) {
+                if (!empty($scores[0]['metadata'])) {
+                    $scores[0]['metadata'] = json_decode($scores[0]['metadata'],
+                            1);
+                    $metadata = $scores[0]['metadata'];
+                    if (!empty($metadata['played']) && !empty($metadata['correct'])) {
+                        $scores[0]['metadata']['accuracy'] = $metadata['correct']
+                                / $metadata['played'] * 100.0;
+                    }
+                }
+                return $scores[0];
+            }
+            return $scores;
         } catch (Exception $ex) {
-
+            logger(\Fuel\Core\Fuel::L_ERROR,
+                    "Error while getting user Scores " . $e->getMessage(),
+                    __METHOD__);
+            return array();
         }
     }
 

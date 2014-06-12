@@ -6,6 +6,16 @@
             {
                 "modules": [
                     {
+                        "module": "mydashboard",
+                        "params": {                           
+                        }
+                    }
+                ],
+                "slot": "lslot1"
+            },
+             {
+                "modules": [
+                    {
                         "module": "fifa/standings",
                         "params": {                           
                         }

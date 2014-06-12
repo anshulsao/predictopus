@@ -13,6 +13,7 @@ class DBConstants {
     const TABLE_USERS_LEAGUES = 'c_rel_users_league';
     const TABLE_RESULTS = 'c_results';
     const TABLE_USER_SCORES = 'c_users_scores';
+    const TABLE_LEAGUES = 'c_leagues';
     
     const COL_LEAGUE_ID = 'league_id';
     const COL_USER_ID = 'user_id';
