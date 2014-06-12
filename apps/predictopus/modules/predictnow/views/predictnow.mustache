@@ -50,9 +50,9 @@
     {{/processed}}
     {{/p}}
     <div class='col-md-12 text-mid'>
-        
+        {{#resultDec}}<span type="button" class="label label-success">{{#p}}{{points}} Points earned!!{{/p}}</span>{{/resultDec}}
         <button type="button" {{#timeover}}disabled{{/timeover}} id='pn-submit' 
-                {{#p}}data-show-summary='1'{{/p}} class="btn btn-primary btn-sm" data-gameid="{{id}}">
+                {{#p}}data-show-summary='1'{{/p}} class="btn btn-primary btn-sm {{#resultDec}}{{#timeover}}hidden{{/timeover}}{{/resultDec}}" data-gameid="{{id}}">
                 {{^p}}Save{{/p}}{{#p}}Edit{{/p}} Prediction{{#timeover}} - Oops Too Late{{/timeover}}</button>
         <button type="button" id='pn-login' class="btn btn-primary btn-sm">Login to Predict</button>
         

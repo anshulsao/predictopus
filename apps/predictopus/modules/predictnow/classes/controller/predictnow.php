@@ -13,14 +13,19 @@ class Controller_Predictnow extends \Controller_ModuleBase {
         $game['p'] = $prediction;
         $time = strtotime($game['time']) + 3*60*60;
         $disabled = false;
+        $resultDeclared = false;
         if($time < strtotime("now")){
-            //$disabled = true;            
+            $disabled = true;            
+        }       
+        if($prediction && $prediction['processed'] == 1){
+            $resultDeclared = true;
         }
         //logger(\Fuel\Core\Fuel::L_DEBUG, "--- " .strtotime("now"), __METHOD__);
         // check if time has passed if yes set disabled=true;
         $modData = array(
             'game' => $game,  
-            'timeover' => $disabled
+            'timeover' => $disabled,
+            'resultDec' => $resultDeclared
         );
         //logger(400, print_r($modData, 1));
         $data = array(
