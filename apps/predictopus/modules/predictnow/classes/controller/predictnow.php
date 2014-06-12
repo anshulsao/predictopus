@@ -6,7 +6,7 @@ class Controller_Predictnow extends \Controller_ModuleBase {
 
     public function action_index() { 
         $gameId = $this->getParam('gameid', 817);
-        logger(400, print_r($gameId, 1));
+        //logger(400, print_r($gameId, 1));
         $model = \Model_OpenFootballModel::getInstance(8);
         $game = $model->getGameDetails($gameId);
         $prediction = \Model_UserDataModel::getPrediction($gameId);
@@ -22,7 +22,7 @@ class Controller_Predictnow extends \Controller_ModuleBase {
             'game' => $game,  
             'timeover' => $disabled
         );
-        logger(400, print_r($modData, 1));
+        //logger(400, print_r($modData, 1));
         $data = array(
             'moduleId' => 'predictnow-mod',
             'moduleClasses' => '',

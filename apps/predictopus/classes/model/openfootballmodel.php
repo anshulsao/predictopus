@@ -81,7 +81,7 @@ class Model_OpenFootballModel extends \Model_Base {
                 $id = $prediction['game_id'];
                 $game = &$games2[$id];
                 $game['p'] = $prediction;
-                logger(400,"*******: ". print_r($game, 1));
+                //logger(400,"*******: ". print_r($game, 1));
                 
             }
         }

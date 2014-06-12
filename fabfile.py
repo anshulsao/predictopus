@@ -60,8 +60,10 @@ def deploy_to():
         #sudo("git stash pop")
         print("Code Pulled. Now Clearing Cache and Restarting server")
         sudo("rm -rf apps/predictopus/cache/*.cache")
-        sudo('service apache2 restart')
+        sudo('service apache2 reload')
 
+def debug():
+    sudo("date")
 
     
     
