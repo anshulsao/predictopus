@@ -14,7 +14,7 @@ class Controller_Predictnow extends \Controller_ModuleBase {
         $time = strtotime($game['time']) - 3*60*60;
         $disabled = false;
         if($time < strtotime("now")){
-            $disabled = true;            
+            //$disabled = true;            
         }
         //logger(\Fuel\Core\Fuel::L_DEBUG, "--- " .strtotime("now"), __METHOD__);
         // check if time has passed if yes set disabled=true;
