@@ -20,6 +20,7 @@ class RankUsers {
                 self::processGameResult($result);
             }
         }
+        //self::updateLeagueRanks();
     }
 
     private static function processGameResult($result) {
@@ -111,19 +112,36 @@ class RankUsers {
             self::updateUserPoints($user_id, $gameid, $score,
                     json_encode($user_predictions));
         }
-        self::updateLeagueRanks();
     }
 
     public static function updateLeagueRanks() {
         try {
             \Fuel\Core\DB::start_transaction(DBConstants::DB_NAME);
+            $metadata = '';
+            $leagueQuery = "select * from c_leagues";
+            $query = \Fuel\Core\DB::query($leagueQuery);
+            $leagues = $query->execute()->as_array();
+            foreach ($leagues as $league) {
+                $league_id = $league['league_id'];
+                $countQuery = "select count(*) as count from c_rel_users_league where league_id=$league_id";
+                $query = \Fuel\Core\DB::query($countQuery);
+                $countResult = $query->execute()->as_array();
+                $count = $countResult[0]["count"];
+                $metadata = json_encode(array('total' => $count));
 
+                $updateQuery = "update c_leagues set metadata='$metadata' where league_id=$league_id";
+                echo "Updating " . $league['name'] . "($league_id) with $metadata \n";
+                $query = \Fuel\Core\DB::query($updateQuery);
+                $query->execute();
+            }
+            $rankingQuery = "update c_rel_users_league set rank = (select rank from (SELECT id AS ID, @curRank := @curRank + 1 AS rank from (select points,id from c_rel_users_league b LEFT JOIN c_users_scores a on a.user_id =b.user_id) p, (SELECT @curRank := 0) r ORDER BY points DESC) as x where x.ID=c_rel_users_league.id)";
+            $query = \Fuel\Core\DB::query($rankingQuery);
+            $query->execute();
             \Fuel\Core\DB::commit_transaction(DBConstants::DB_NAME);
         } catch (Exception $e) {
             \Fuel\Core\DB::rollback_transaction(DBConstants::DB_NAME);
-            logger(\Fuel\Core\Fuel::L_ERROR,
-                    "Error while getting prediction " . $e->getMessage(),
-                    __METHOD__);
+            echo 'ERROR: ' . $e->getMessage();
+
             return false;
         }
     }

@@ -18,6 +18,9 @@ class Controller_StaticPages extends \Controller_ModuleBase {
     }
 
     public function action_home() {
+        if(\GenUtility::isLoggedIn()){
+            \Response::redirect('http://'.$_SERVER['HTTP_HOST']."/dashboard", 'location');
+        }
         $data = array(
             "moduleId" => 'st-home',
             "moduleClasses" => '',
