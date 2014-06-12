@@ -98,6 +98,10 @@ YCustom.later(10, window, function() {
             if(!fScore1 || !fScore2){
                 error = 'Full time score prediction is mandatory.';
             }
+            if(!hScore1 || !hScore2){
+                error = 'We have made half time score prediction mandatory. '
+                + 'If you predicted earlier, you can update your prediction or leave it as is.';
+            }
             if ((fScore1 !== '' && fScore1 < hScore1) ||
                     (fScore2 !== '' && fScore2 < hScore2)) {
                 error = 'Full time score cannot be less than half time score.';

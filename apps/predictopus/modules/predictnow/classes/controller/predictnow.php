@@ -27,7 +27,7 @@ class Controller_Predictnow extends \Controller_ModuleBase {
             'moduleId' => 'predictnow-mod',
             'moduleClasses' => '',
             'content' => \View::forge('predictnow.mustache', $modData),
-            'head' => '',
+            'head' => '<a href="/world-cup" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left"></span>   Matches</a>',
             'js' => array('modules/predictnow/predictnow.js'),
             'css' => array('')
         );
