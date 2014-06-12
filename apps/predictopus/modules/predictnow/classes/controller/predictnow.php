@@ -11,7 +11,7 @@ class Controller_Predictnow extends \Controller_ModuleBase {
         $game = $model->getGameDetails($gameId);
         $prediction = \Model_UserDataModel::getPrediction($gameId);
         $game['p'] = $prediction;
-        $time = strtotime($game['time']) - 3*60*60;
+        $time = strtotime($game['time']) + 3*60*60;
         $disabled = false;
         if($time < strtotime("now")){
             //$disabled = true;            
