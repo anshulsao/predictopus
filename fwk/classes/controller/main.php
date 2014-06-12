@@ -62,7 +62,8 @@ class Controller_Main extends Controller_Base {
             $pageConfig = Fuel\Core\Config::load($fileName);
             //$pageConfig = json_decode($pageConfigs, 1);
             //logger(\Fuel\Core\Fuel::L_DEBUG, print_r($pageConfig, 1), __METHOD__);
-            if (DeviceWrapper::is_mobileonly()) {
+            //TODO: Mobile page not made
+            if (false && DeviceWrapper::is_mobileonly()) {
                 $css[] = 'themes/default/theme-mobile.css';
                 $view = \Fuel\Core\View::forge('base/mobile_page_template',
                                 $this->templateData);
