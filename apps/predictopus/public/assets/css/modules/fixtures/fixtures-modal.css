@@ -17,14 +17,13 @@
     display: block;
     width: 100%;
     overflow: hidden; }
+#full-fixtures .fx-game-int div {
+  line-height: 30px; }
 #full-fixtures .fx-teams .flag {
-  margin-right: 5px;
-  position: absolute;
-  top: -5px;
   border: solid 1px #eee;
-  box-shadow: 2px 2px 2px 0px #666; }
-#full-fixtures .fx-teams .fx-tmname {
-  margin-left: 50px; }
+  box-shadow: 2px 2px 2px 0px #666;
+  vertical-align: middle;
+  margin-right: 8px; }
 #full-fixtures .w-team-1 .tm-1 {
   font-size: 110%;
   color: green;

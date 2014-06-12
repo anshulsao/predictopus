@@ -24,16 +24,19 @@
 
         }
     }
+    .fx-game-int{
+        div{          
+            line-height: 30px;
+        }
+    }
     .fx-teams{ 
-        .flag{
-            margin-right:5px;
-            position:absolute;
-            top: -5px;
+        .flag{            
             border: solid 1px #eee;
             box-shadow: 2px 2px 2px 0px #666;
+            vertical-align: middle;
+            margin-right: 8px;
         }
         .fx-tmname{
-            margin-left:50px;
         }
     }
     .w-team-1{

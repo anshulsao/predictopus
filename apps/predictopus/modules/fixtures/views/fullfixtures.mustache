@@ -1,4 +1,4 @@
-
+pa
 <ul>
     {{#fixtures}}
     <li class='fx-stage'>
@@ -7,22 +7,20 @@
             {{#games}}
             <li class='fx-game fnt-neg bg-neg col-sm-12'>
                 <a href='/world-cup/game/{{id}}' class='fnt-neg'>
-                    <div class="row">
-                        <div class='col-sm-1 fx-time'>{{timeDisp}}</div>
-                        <div class='col-sm-7 fx-teams'>
-                            <span class='col-sm-6'>
-                                <i class='flag {{team1Code}}'></i>
-                                <span class='fx-tmname'>{{{team1Name}}}</span>
-                            </span>
-                            <span class='col-sm-6'>
-                                <i class='flag {{team2Code}}'></i>
-                                <span class='fx-tmname'>{{{team2Name}}}</span>  
-                            </span>
+                    <div class="row fx-game-int">
+                        <div class='col-xs-12 col-sm-1 fx-time'>{{timeDisp}}</div>
+                        <div class='col-xs-12 col-sm-7 fx-teams'>
+                            <div class='col-xs-6'>
+                                <i class='flag {{team1Code}}'></i>{{{team1Name}}}
+                            </div>
+                            <div class='col-xs-6'>
+                                <i class='flag {{team2Code}}'></i>{{{team2Name}}}  
+                            </div>
                         </div>
-                        <div class='col-sm-2 fx-venue'>
+                        <div class='col-xs-6 col-sm-2 fx-venue'>
                             <span>{{{groundTitle}}}</span>
                         </div>
-                        <div class='col-sm-2 fx-actions' href='/world-cup/game/{{id}}'>
+                        <div class='col-xs-6 col-sm-2 fx-actions'>
                             <button type="button" class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} btn-xs {{#p}}{{#processed}}hidden{{/processed}}{{/p}}">{{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
                             {{#p}}{{#processed}}
                             <span class='btn btn-default btn-xs'>Match over</span>
