@@ -27,7 +27,7 @@ class Controller_MyDashBoard extends \Controller_ModuleBase {
         $prevGames = array();
         $nextGames = array();
         //TODO remove this
-        $now = strtotime('now') + 40 * 60 * 60;
+        $now = strtotime('now');
         $nextDate = '';
         foreach ($fixtures as $fixture) {
             foreach ($fixture['games'] as $game) {
