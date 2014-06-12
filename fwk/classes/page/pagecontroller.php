@@ -91,7 +91,7 @@ abstract class PageController {
         }
         
         $cannonical = \Fuel\Core\Uri::segments();
-        logger(400, print_r($cannonical, 1 ), __METHOD__);
+        //logger(400, print_r($cannonical, 1 ), __METHOD__);
         return $social;
     }
 
