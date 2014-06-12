@@ -144,7 +144,7 @@ JS;
         } else {
             $deviceCss = $this->getCSSName($cssBaseName . self::DESKTOP_CSS_SUFFIX);
         }
-        $defaultCss = array($modalCss, $deviceCss);
+        $defaultCss = array($modalCss, $deviceCss);        
         if (!$moduleCss) {
             $moduleCss = array();
         }
@@ -154,6 +154,7 @@ JS;
 
     private function getCSSName($css) {
         $fileName = APPPATH . 'public' . DS . 'assets' . DS . 'css' . DS . $css;
+        logger(\Fuel\Core\Fuel::L_DEBUG, $fileName, __METHOD__);
         if (file_exists($fileName)) {
             return $css;
         }
