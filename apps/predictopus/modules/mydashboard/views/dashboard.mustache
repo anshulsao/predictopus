@@ -19,13 +19,15 @@
               Total Score: {{points}}
           </td>
       </tr>
+      {{/userStat}}
       <tr>
           <td>
               {{#leagues}}
-              Rank: {{rank}}/{{#metadata}}{{total}}{{/metadata}}
+              Rank: {{#userStat}}{{rank}}{{/userStat}}/{{#metadata}}{{total}}{{/metadata}}
               {{/leagues}}
           </td>
       </tr>
+      {{#userStat}}
       <tr>
           <td>
               Accuracy: {{#metadata}}{{accuracy}}{{/metadata}}%
