@@ -33,5 +33,14 @@
     background-position: -5px -40px;
     cursor: pointer; }
 
+.hp-lgn.lgo {
+  display: none; }
+  .hp-lgn.lgo span {
+    color: white;
+    top: 5px !important;
+    text-decoration: underline; }
+
 .loggedin .hp-lgn {
   display: none; }
+.loggedin .hp-lgn.lgo {
+  display: block; }

@@ -39,10 +39,21 @@
             background-position: -5px -40px;
             cursor: pointer;
         }
+    }    
+}
+.hp-lgn.lgo{
+    display: none;
+    span{
+        color: white;
+        top:5px!important;
+        text-decoration: underline;
     }
 }
 .loggedin{
     .hp-lgn{
         display: none;
+    }
+    .hp-lgn.lgo{
+        display:block;
     }
 }
