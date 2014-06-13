@@ -155,8 +155,8 @@ class Model_UserDataModel extends \Model_Base {
             return false;
         }
         try {
-            $htsc1 = $predictions['hScore1'];
-            $htsc2 = $predictions['hScore2'];   
+            $htsc1 = intval($predictions['hScore1']);
+            $htsc2 = intval($predictions['hScore2']);   
             $htResult=0;
             if($htsc2 > $htsc1){
                 $htResult = 2;
