@@ -8,7 +8,7 @@
 
 class Model_UserDataModel extends \Model_Base {
 
-    const DB_NAME = 'local';    
+    const DB_NAME = 'local';
 
     public static function getLeagueStats($userid = '') {
         try {
@@ -20,7 +20,7 @@ class Model_UserDataModel extends \Model_Base {
                 return array();
             }
             $query = Fuel\Core\DB::query("select * from c_rel_users_league left join c_leagues on c_rel_users_league.league_id = c_leagues.league_id where user_id = $userid;");
-            $leagues = $query->execute(self::DB_NAME)->as_array();                        
+            $leagues = $query->execute(self::DB_NAME)->as_array();
             return $leagues;
         } catch (Exception $e) {
             logger(\Fuel\Core\Fuel::L_ERROR,
@@ -156,15 +156,17 @@ class Model_UserDataModel extends \Model_Base {
         }
         try {
             $htsc1 = intval($predictions['hScore1']);
-            $htsc2 = intval($predictions['hScore2']);   
-            $htResult=0;
-            if($htsc2 > $htsc1){
+            $htsc2 = intval($predictions['hScore2']);
+            $htResult = 0;
+            if ($htsc1 > $htsc2) {
+                $htResult = 1;
+            }
+            if ($htsc2 > $htsc1) {
                 $htResult = 2;
             }
-            if($htsc1 > $htsc2){
-                $htResult = 1;
-            }            
-            logger(\Fuel\Core\Fuel::L_ERROR, "htsc1=$htsc1   htsc2=$htsc2   htResult=$htResult ", __METHOD__);
+            logger(\Fuel\Core\Fuel::L_ERROR,
+                    "htsc1=$htsc1   htsc2=$htsc2   htResult=$htResult ",
+                    __METHOD__);
             Fuel\Core\DB::start_transaction(self::DB_NAME);
             $predJson = json_encode($predictions);
             $query = Fuel\Core\DB::query('insert into ' . DBConstants::TABLE_PREDICTIONS . " (user_id, game_id, result, hresult, prediction) values ($userid, $gameid, $result, $htResult, '$predJson') on duplicate key update result=$result, hresult=$htResult, prediction='$predJson'");
