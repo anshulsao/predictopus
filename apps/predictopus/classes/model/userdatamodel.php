@@ -156,8 +156,9 @@ class Model_UserDataModel extends \Model_Base {
         }
         try {
             $htsc1 = $predictions['hScore1'];
-            $htsc2 = $predictions['hScore2'];
+            $htsc2 = $predictions['hScore2'];            
             $htResult = $htsc2 > $htsc1 ? 2 : $htsc2 < $htsc1 ? 1 : 0;
+            logger(\Fuel\Core\Fuel::L_ERROR, "htsc1=$htsc1   htsc2=$htsc2   htResult=$htResult ", __METHOD__);
             Fuel\Core\DB::start_transaction(self::DB_NAME);
             $predJson = json_encode($predictions);
             $query = Fuel\Core\DB::query('insert into ' . DBConstants::TABLE_PREDICTIONS . " (user_id, game_id, result, hresult, prediction) values ($userid, $gameid, $result, $htResult, '$predJson') on duplicate key update result=$result, hresult=$htResult, prediction='$predJson'");
