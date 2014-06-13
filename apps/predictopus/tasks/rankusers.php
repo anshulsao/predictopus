@@ -12,6 +12,28 @@ use \DBConstants;
 
 class RankUsers {
 
+    public static function notifyUsers() {
+        $notification = 'Test Notification';
+        $href = 'http://www.playpredictopus.com';
+        try {
+            // get user info from db
+            $getUsersQuery = "select * from users_metadata where `key`='uid' and parent_id=4";
+            $query = \Fuel\Core\DB::query($getUsersQuery);
+            $users = $query->execute()->as_array();
+            foreach ($users as $user) {
+                $uid = $user['uid'];
+
+                $url = '';
+                // create post request
+                $curl = \Fuel\Core\Request::forge($url, 'curl');
+
+                // send
+            }
+        } catch (Exception $e) {
+            echo 'Exception' . $e->getMessage();
+        }
+    }
+
     public static function run() {
         echo 'Starting Ranking';
         $results = self::getUnprocessedResults();
@@ -19,8 +41,10 @@ class RankUsers {
             foreach ($results as $result) {
                 self::processGameResult($result);
             }
+            if (counts($results) > 0) {
+                self::updateLeagueRanks();
+            }
         }
-        //self::updateLeagueRanks();
     }
 
     private static function processGameResult($result) {
@@ -88,13 +112,19 @@ class RankUsers {
             $user_id = $prediction[\DBConstants::COL_USER_ID];
             $user_predictions = json_decode($prediction[\DBConstants::COL_PREDICTIONS],
                     1);
-            echo print_r($user_predictions, 1);
+            //echo print_r($user_predictions, 1);
             $T1_HT_P = $user_predictions['hScore1'];
             $T2_HT_P = $user_predictions['hScore2'];
             $T1_FT_P = $user_predictions['fScore1'];
             $T2_FT_P = $user_predictions['fScore2'];
             $user_result = $prediction[\DBConstants::COL_RESULT];
-            $user_hresult = $prediction[\DBConstants::COL_HRESULT];
+            $user_hresult = 0;
+            if ($T2_HT_P > $T1_HT_P) {
+                $user_hresult = 2;
+            }
+            if ($T1_HT_P > $T2_HT_P) {
+                $user_hresult = 1;
+            }
             $Score_FT = $user_result == $game_result ? $CR_FT_F : 0;
             $Score_HT = $user_hresult == $game_hresult ? $CR_HT_F : 0;
             $Goal_D_FT = abs(($T1_FT_P - $T1_FT)) + abs(($T2_FT_P - $T2_FT));
@@ -103,7 +133,7 @@ class RankUsers {
                             1 + $Goal_D_FT));
             $Score_HT = ($Goal_D_HT == 0) ? $Score_HT * 2 : $Score_HT;
             $score = $Score_FT * 30 + $Score_HT * 15;
-            echo "Points for user $user_id : $score HT-> $T1_HT_P - $T2_HT_P ($T1_HT - $T2_HT) FT-> $T1_FT_P - $T2_FT_P ($T1_FT - $T2_FT)\n ";
+            echo "Points for user $user_id : $score HT-> $T1_HT_P - $T2_HT_P ($T1_HT - $T2_HT) FT-> $T1_FT_P - $T2_FT_P ($T1_FT - $T2_FT)  [$user_hresult  ,  $user_result]\n ";
             //update score
             $user_predictions['ahScore1'] = $T1_HT;
             $user_predictions['ahScore2'] = $T2_HT;
