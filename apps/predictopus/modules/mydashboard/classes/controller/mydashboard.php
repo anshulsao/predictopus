@@ -11,6 +11,9 @@ namespace MyDashBoard;
 class Controller_MyDashBoard extends \Controller_ModuleBase {
 
     public function action_index() {
+        if(!\GenUtility::isLoggedIn()){
+            \Response::redirect('http://'.$_SERVER['HTTP_HOST'], 'location');
+        }
         $tournamentId = 8;
         $model = \Model_OpenFootballModel::getInstance($tournamentId);
         $userStats = \Model_UserDataModel::getUserStats();
