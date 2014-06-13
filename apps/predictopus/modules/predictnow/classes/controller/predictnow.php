@@ -5,7 +5,7 @@ namespace Predictnow;
 class Controller_Predictnow extends \Controller_ModuleBase {
 
     public function action_index() { 
-        $gameId = $this->getParam('gameid', 817);
+        $gameId = $this->getParam('gameid', 817);        
         //logger(400, print_r($gameId, 1));
         $model = \Model_OpenFootballModel::getInstance(8);
         $game = $model->getGameDetails($gameId);
@@ -20,12 +20,14 @@ class Controller_Predictnow extends \Controller_ModuleBase {
         if($prediction && $prediction['processed'] == 1){
             $resultDeclared = true;
         }
+        $url = \Fuel\Core\Uri::main();
         //logger(\Fuel\Core\Fuel::L_DEBUG, "--- " .strtotime("now"), __METHOD__);
         // check if time has passed if yes set disabled=true;
         $modData = array(
             'game' => $game,  
             'timeover' => $disabled,
-            'resultDec' => $resultDeclared
+            'resultDec' => $resultDeclared,
+            'url' => $url
         );
         //logger(400, print_r($modData, 1));
         $data = array(
