@@ -156,8 +156,14 @@ class Model_UserDataModel extends \Model_Base {
         }
         try {
             $htsc1 = $predictions['hScore1'];
-            $htsc2 = $predictions['hScore2'];            
-            $htResult = $htsc2 > $htsc1 ? 2 : $htsc2 < $htsc1 ? 1 : 0;
+            $htsc2 = $predictions['hScore2'];   
+            $htResult=0;
+            if($htsc2 > $htsc1){
+                $htResult = 2;
+            }
+            if($htsc1 > $htsc2){
+                $htResult = 1;
+            }            
             logger(\Fuel\Core\Fuel::L_ERROR, "htsc1=$htsc1   htsc2=$htsc2   htResult=$htResult ", __METHOD__);
             Fuel\Core\DB::start_transaction(self::DB_NAME);
             $predJson = json_encode($predictions);
