@@ -72,6 +72,11 @@ class Controller_Login extends \Controller_ModuleBase {
                 // the provider was known and linked, the linked account as logged-in
                 case 'logged_in':
                     logger(\Fuel\Core\Fuel::L_DEBUG, 'LOGGEDIN', __METHOD__);
+                    \Auth\Auth::update_user(
+                            array(                               
+                                'uid' => $opauth->get('auth.uid', ''),
+                            )
+                    );
                     \Auth::remember_me();
                     break;
 
@@ -92,6 +97,7 @@ class Controller_Login extends \Controller_ModuleBase {
                                 'profilepic' => $opauth->get('auth.info.image',
                                         ''),
                                 'bdate' => $opauth->get('auth.raw.birthday', ''),
+                                'uid' => $opauth->get('auth.uid', ''),
                             )
                     );
                     self::addUserInSystem();
