@@ -23,11 +23,22 @@ class Controller_Header extends \Controller_ModuleBase {
         }
         $uri = \Fuel\Core\Uri::main();
 
+        $userStats = \Model_UserDataModel::getUserStats();
+        $leagues = \Model_UserDataModel::getLeagueStats();
+        foreach ($leagues as &$league) {
+            try {
+                $league['metadata'] = json_decode($league['metadata'], 1);
+            } catch (Exception $ex) {
+                $league['metadata'] = array("total" => "-");
+            }
+        }
         $modData = array(
             "loggedIn" => $isLoggedIn,
             'name' => $name,
             'email' => $email,
-            'profilePic' => $profilePic
+            'profilePic' => $profilePic,
+            'userStat' => $userStats,
+            'leagues' => $leagues
         );
         if (strstr($uri, 'world-cup')) {
             $modData['isWC'] = true;
@@ -35,7 +46,7 @@ class Controller_Header extends \Controller_ModuleBase {
             $modData['isRules'] = true;
         } else if (strstr($uri, 'how-to')) {
             $modData['isHowTo'] = true;
-        }else {
+        } else {
             $modData['isHome'] = true;
         }
         $data = array(
