@@ -66,7 +66,7 @@ abstract class PageController {
     }
 
     public function getSocialHeader() {
-        $social = '<meta name="twitter:site" content="@zap2it">';
+        $social = '';
         $title = $this->getTitle();
         if (!empty($title)) {
             $social .= "<meta property='og:title' content='$title'>";

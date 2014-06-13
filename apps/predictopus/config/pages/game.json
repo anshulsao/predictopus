@@ -34,7 +34,8 @@
                 ],
                 "slot": "rslot1"
             }
-        ]
+        ],
+        "controller": "Page\\Game"
     }
 
 }
