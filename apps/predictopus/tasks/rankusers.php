@@ -35,7 +35,7 @@ class RankUsers {
     }
 
     public static function run() {
-        echo 'Starting Ranking';
+        echo date('c') . "  Starting Ranking \n";
         $results = self::getUnprocessedResults();
         if ($results) {
             foreach ($results as $result) {
