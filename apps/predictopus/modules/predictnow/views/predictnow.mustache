@@ -1,6 +1,6 @@
 {{#game}}
 <h1 class='fx-title-gm pdh-15 bg mod-title'>Predict results - {{date}} - {{{team1Name}}} vs {{{team2Name}}}</h1>
-<div class='bg-neg fnt-neg of-hid pd-15'>
+<div class='bg-neg fnt-neg pd-15'>
     <div class='col-xs-6 text-mid pd-0'>
         <img class='pn-badge' src='http://static.playpredictopus.com/assets/img/badges/{{team1Code}}.png'>
         <h2 class='fnt-h2'>{{{team1Name}}}</h2>
@@ -18,12 +18,12 @@
     <div class='col-xs-12 text-mid pn-tools pd-0'>             
         <div class="input-group pn-toolrow    {{#p}}{{#processed}}hidden{{/processed}}{{/p}}">
             <input id='hScore1' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{hScore1}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Half time goals for {{{team1Name}}}">
-            <span class="input-group-addon">-</span>
+                   <span class="input-group-addon">-</span>
             <input id='hScore2' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{hScore2}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Half time goals for {{{team2Name}}}">
         </div>
         <div class="input-group pn-toolrow {{#p}}{{#processed}}hidden{{/processed}}{{/p}}">
             <input id='fScore1' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{fScore1}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Full time goals for {{{team1Name}}}">
-            <span class="input-group-addon">-</span>
+                   <span class="input-group-addon">-</span>
             <input id='fScore2' {{#timeover}}disabled{{/timeover}} type="number" value="{{#p}}{{#prediction}}{{fScore2}}{{/prediction}}{{/p}}" class="form-control text-mid" min="0" max="15" placeholder="Full time goals for {{{team2Name}}}">
         </div>
         <div class="alert alert-danger hidden pn-toolrow" id='pn-errorDiv'></div>
@@ -55,9 +55,9 @@
                 {{#p}}data-show-summary='1'{{/p}} class="btn btn-primary btn-sm {{#resultDec}}{{#timeover}}hidden{{/timeover}}{{/resultDec}}" data-gameid="{{id}}">
                 {{^p}}Save{{/p}}{{#p}}Edit{{/p}} Prediction{{#timeover}} - Oops Too Late{{/timeover}}</button>
         <button type="button" id='pn-login' class="btn btn-primary btn-sm">Login to Predict</button>
-        
+
     </div>
-    <div class='col-md-12 text-mid' style="margin-top:15px;">
+    <div class='col-md-12' style="margin-top:15px;">
         <div class="fb-like" data-href="{{url}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
 </div>
