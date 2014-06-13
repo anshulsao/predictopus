@@ -133,7 +133,7 @@ class RankUsers {
                             1 + $Goal_D_FT));
             $Score_HT = ($Goal_D_HT == 0) ? $Score_HT * 2 : $Score_HT;
             $score = $Score_FT * 30 + $Score_HT * 15;
-            echo "Points for user $user_id : $score HT-> $T1_HT_P - $T2_HT_P ($T1_HT - $T2_HT) FT-> $T1_FT_P - $T2_FT_P ($T1_FT - $T2_FT)  [$user_hresult  ,  $user_result]\n ";
+            echo date('c') . "  Points for user $user_id : $score HT-> $T1_HT_P - $T2_HT_P ($T1_HT - $T2_HT) FT-> $T1_FT_P - $T2_FT_P ($T1_FT - $T2_FT)  [$user_hresult  ,  $user_result]\n ";
             //update score
             $user_predictions['ahScore1'] = $T1_HT;
             $user_predictions['ahScore2'] = $T2_HT;
