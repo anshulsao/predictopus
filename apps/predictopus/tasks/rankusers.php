@@ -41,7 +41,7 @@ class RankUsers {
             foreach ($results as $result) {
                 self::processGameResult($result);
             }
-            if (counts($results) > 0) {
+            if (count($results) > 0) {
                 self::updateLeagueRanks();
             }
         }
