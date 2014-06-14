@@ -166,7 +166,7 @@ class Model_UserDataModel extends \Model_Base {
             }
             $logPred = json_encode($predictions);
             logger(\Fuel\Core\Fuel::L_ERROR,
-                    "PRED: $userid predicted  $logPred",
+                    "PRED: $userid predicted  $logPred for $gameid",
                     __METHOD__);
             Fuel\Core\DB::start_transaction(self::DB_NAME);
             $predJson = json_encode($predictions);
