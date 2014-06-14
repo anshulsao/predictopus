@@ -164,8 +164,9 @@ class Model_UserDataModel extends \Model_Base {
             if ($htsc2 > $htsc1) {
                 $htResult = 2;
             }
+            $logPred = json_encode($predictions);
             logger(\Fuel\Core\Fuel::L_ERROR,
-                    "htsc1=$htsc1   htsc2=$htsc2   htResult=$htResult ",
+                    "PRED: $userid predicted  $logPred",
                     __METHOD__);
             Fuel\Core\DB::start_transaction(self::DB_NAME);
             $predJson = json_encode($predictions);
