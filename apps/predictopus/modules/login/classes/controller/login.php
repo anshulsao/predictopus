@@ -83,6 +83,7 @@ class Controller_Login extends \Controller_ModuleBase {
                 // we don't know this provider login, ask the user to create a local account first
                 case 'register':
                     // inform the user the login using the provider was succesful, but we need a local account to continue
+                    logger(400, print_r($opauth, 1), __METHOD__);
                     logger(\Fuel\Core\Fuel::L_ERROR,
                             'The user should never come here as auto registration is activated',
                             __METHOD__);
