@@ -69,7 +69,7 @@ class Model_OpenFootballModel extends \Model_Base {
                 }                
                 
             }
-            logger(\Fuel\Core\Fuel::L_DEBUG, "--->" . print_r($fixture, 1), __METHOD__);
+//            logger(\Fuel\Core\Fuel::L_DEBUG, "--->" . print_r($temp, 1), __METHOD__);
             array_push($fixtures, $fixture);
         }
 

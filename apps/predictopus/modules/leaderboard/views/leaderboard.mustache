@@ -1,0 +1,17 @@
+<div class='mod-right-wrapper'>
+    <div class="pdh-15 bg mod-title">Leader Board</div>
+    <table class="table table-striped bg-neg fnt-neg pdh-15">
+        <tr>
+            <th>Rank</th>
+            <th>Nick</th>
+            <th>Points</th>
+        </tr>
+        {{#leader}}
+        <tr>
+            <td>{{rank}}</td>
+            <td>{{value}}</td>
+            <td>{{points}}</td>
+        </tr>
+        {{/leader}}
+    </table>
+</div>

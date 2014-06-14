@@ -70,6 +70,10 @@ return array(
             'app_secret' => 'e5b643eab65b6ee300f1af1156ad78b7',
             'scope' => 'email',
             'display' => 'popup'
-        )
+        ),
+        'Twitter' => array(
+            'key' => 'PJhHXmJdidT9IbxcH4Doju4pO',
+            'secret' => 'UKPrgsNwGh3qOqDWjJkqfZsoMSIBuSM2FTiadwELp4IYtv85wi'
+        ),
     )
 );
