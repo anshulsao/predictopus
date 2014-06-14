@@ -17,7 +17,7 @@ class Controller_LeaderBoard extends \Controller_ModuleBase {
     
     function action_index(){
         $limit = $this->getParam('showleaders');
-        $lead = Model_LeaderBoard::getLeaderBoard();
+        $lead = Model_LeaderBoard::getLeaderBoard($limit);
         $modData = array('leader' => $lead);
         logger(400, print_r($modData,1), __METHOD__);
         $data = array(
