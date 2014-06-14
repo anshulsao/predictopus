@@ -43,6 +43,11 @@ class Model_OpenFootballModel extends \Model_Base {
             while ($row2 = $results2->fetchArray(SQLITE3_ASSOC)) {
                 //logger(\Fuel\Core\Fuel::L_DEBUG, print_r($row2, 1), __METHOD__);
                 $data = $this->parseGame($row2);
+                $gameDate = $data['time'];
+                $time = strtotime($gameDate) + 3 * 60 * 60;
+                if ($time < strtotime("now")) {
+                    $data['matchEnded'] = true;
+                }
                 array_push($games, $data);
             }
             //logger(\Fuel\Core\Fuel::L_DEBUG, print_r($row, 1), __METHOD__);
@@ -61,8 +66,10 @@ class Model_OpenFootballModel extends \Model_Base {
                 $gameDateDisp2 = $gameDateObj2->format('d M Y');
                 if ($gameDateDisp2 !== $gameDateDisp) {
                     $fixture['dispEndDate'] = $gameDateDisp2;
-                }
+                }                
+                
             }
+            logger(\Fuel\Core\Fuel::L_DEBUG, "--->" . print_r($fixture, 1), __METHOD__);
             array_push($fixtures, $fixture);
         }
 

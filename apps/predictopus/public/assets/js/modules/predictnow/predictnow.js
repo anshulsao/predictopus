@@ -17,7 +17,7 @@ YCustom.later(10, window, function() {
         var gameid = submit.getAttribute('data-gameid');
         var showSummary = submit.getAttribute('data-show-summary');
         if (showSummary) {
-            parseData(false);
+                parseData(false);
         }
 
         submit.on('click', function() {
@@ -30,11 +30,14 @@ YCustom.later(10, window, function() {
             var fScore2 = fScore2Ele.get('value');
             var hScore = hScore1 && hScore2 ? hScore1 + " - " + hScore2 : '';
             var fScore = fScore1 && fScore2 ? fScore1 + " - " + fScore2 : '';
-            debugger;
             if (validate(hScore1, hScore2, fScore1, fScore2)) {
                 var result = fScore1 > fScore2 ? 1 : fScore1 < fScore2 ? 2 : 0;
                 // team1/2Global vars set in mustache
-                var teamW = result == 1 ? team1 : result == 2 ? team2 : 0;
+                try {
+                    var teamW = result == 1 ? team1 : result == 2 ? team2 : 0;
+                } catch (e) {
+                    var teamW = '  ';
+                }
                 var template = templates['all'];
                 var data = {
                     'hScore': hScore,
@@ -100,7 +103,7 @@ YCustom.later(10, window, function() {
             }
             if(!hScore1 || !hScore2){
                 error = 'We have made half time score prediction mandatory. '
-                + 'If you predicted earlier, you can update your prediction or leave it as is.';
+                        + 'If you predicted earlier, you can update your prediction or leave it as is.';
             }
             if ((fScore1 !== '' && fScore1 < hScore1) ||
                     (fScore2 !== '' && fScore2 < hScore2)) {

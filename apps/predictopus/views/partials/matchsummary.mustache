@@ -14,10 +14,13 @@
                 <span>{{#showDate}}{{date}}{{/showDate}}{{^showDate}}{{{groundTitle}}}{{/showDate}}</span>
             </div>
             <div class='col-xs-6 col-sm-2 fx-actions'>
-                <button type="button" class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} btn-xs {{#p}}{{#processed}}hidden{{/processed}}{{/p}}">{{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
-                {{#p}}{{#processed}}
+                <button type="button" 
+                        class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} 
+                        btn-xs {{#matchEnded}}hidden{{/matchEnded}}">
+                    {{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
+                {{#matchEnded}}
                 <span class='btn btn-default btn-xs'>Match over</span>
-                {{/processed}}{{/p}}
+                {{/matchEnded}}
             </div>
         </div>
         {{#p}}{{#prediction}}

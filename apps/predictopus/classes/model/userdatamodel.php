@@ -198,7 +198,7 @@ class Model_UserDataModel extends \Model_Base {
         } catch (Exception $e) {
             Fuel\Core\DB::rollback_transaction(self::DB_NAME);
             logger(\Fuel\Core\Fuel::L_ERROR,
-                    "Error while saving Predictions " . $e->getMessage(),
+                    "User already initialized " . $e->getMessage(),
                     __METHOD__);
             return false;
         }
