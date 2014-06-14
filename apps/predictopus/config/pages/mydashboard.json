@@ -21,6 +21,16 @@
                         }
                     }
                 ],
+                "slot": "rslot2"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "fifa/livescore",
+                        "params": {                           
+                        }
+                    }
+                ],
                 "slot": "rslot1"
             }
         ]

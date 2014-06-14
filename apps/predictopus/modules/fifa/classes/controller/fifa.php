@@ -62,4 +62,16 @@ class Controller_Fifa extends \Controller_ModuleBase {
         );
         return $this->render($data);
     }
+    
+    public function action_livescore(){
+        $data = array(
+            "moduleId" => 'fifa-news',
+            "moduleClasses" => '',
+            "content" => \View::forge('livescore.html'),
+            "js" => array(''),
+            "css" => array('modules/fifa/fifa-modal.css'),
+            "inlineJs" => '',
+        );
+        return $this->render($data);
+    }
 }
