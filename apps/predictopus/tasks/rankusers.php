@@ -47,17 +47,41 @@ class RankUsers {
         }
     }
 
+    public static function correctHalfResults($gameid = 809) {        
+        $predictions = \Model_UserDataModel::getPredictionsGame($gameid);
+        foreach ($predictions as $prediction) {
+            $id = $prediction['id'];
+            $user_predictions = json_decode($prediction[\DBConstants::COL_PREDICTIONS],
+                    1);
+            
+            $T1_HT_P = $user_predictions['hScore1'];
+            $T2_HT_P = $user_predictions['hScore2'];
+            $htResult = 0;
+            if ($T1_HT_P > $T2_HT_P) {
+                $htResult = 1;
+            }
+            if ($T2_HT_P > $T1_HT_P) {
+                $htResult = 2;
+            }
+            echo $id .') htResult='.$htResult." Correcting Half result - ($T1_HT_P - $T2_HT_P) $gameid\n";
+            $updateQuery = 'update c_users_predictions set hresult=' . $htResult . ' where id='.$id;
+            $query = \Fuel\Core\DB::query($updateQuery);
+            $query->execute();
+        }
+    }
+
     private static function processGameResult($result) {
         $gameid = $result[\DBConstants::COL_GAME_ID];
+        self::correctHalfResults($gameid);
         $predictions = \Model_UserDataModel::getPredictionsGame($gameid);
         $total = count($predictions);
         echo print_r($result, 1);
-        $T1_HT = $result[\DBConstants::DATA_HSCORE1];
-        $T2_HT = $result[\DBConstants::DATA_HSCORE2];
-        $T1_FT = $result[\DBConstants::DATA_FSCORE1];
-        $T2_FT = $result[\DBConstants::DATA_FSCORE2];
+        $T1_HT = intval($result[\DBConstants::DATA_HSCORE1]);
+        $T2_HT = intval($result[\DBConstants::DATA_HSCORE2]);
+        $T1_FT = intval($result[\DBConstants::DATA_FSCORE1]);
+        $T2_FT = intval($result[\DBConstants::DATA_FSCORE2]);
         $game_hresult = $T1_HT > $T2_HT ? 1 : ($T2_HT > $T1_HT ? 2 : 0);
-        $game_result = $T1_FT > $T2_FT ? 1 : ($T1_FT > $T2_FT ? 2 : 0);
+        $game_result = $T1_FT > $T2_FT ? 1 : ($T2_FT > $T1_FT ? 2 : 0);
         //TODO: Calculate Half Time total
         $T1_HT_P_P = self::getCountStat($gameid, DBConstants::COL_HRESULT, 1) / $total
                 * 1.0;
@@ -66,19 +90,21 @@ class RankUsers {
         $TD_HT_P_P = self::getCountStat($gameid, DBConstants::COL_HRESULT, 0) / $total
                 * 1.0;
 
+
         $T1_FT_P_P = self::getCountStat($gameid, DBConstants::COL_RESULT, 1) / $total
                 * 1.0;
         $T2_FT_P_P = self::getCountStat($gameid, DBConstants::COL_RESULT, 2) / $total
                 * 1.0;
         $TD_FT_P_P = self::getCountStat($gameid, DBConstants::COL_RESULT, 0) / $total
                 * 1.0;
-
+        //echo '$T1_HT_P_P $T2_HT_P_P $TD_HT_P_P'."   $T1_HT_P_P   $T2_HT_P_P   $TD_HT_P_P \n";
         $T1_HT_P_P = $T1_HT_P_P > 0 ? $T1_HT_P_P : 0.02;
         $T2_HT_P_P = $T2_HT_P_P > 0 ? $T2_HT_P_P : 0.02;
         $TD_HT_P_P = $TD_HT_P_P > 0 ? $TD_HT_P_P : 0.02;
         $T1_FT_P_P = $T1_FT_P_P > 0 ? $T1_FT_P_P : 0.02;
         $T2_FT_P_P = $T2_FT_P_P > 0 ? $T2_FT_P_P : 0.02;
         $TD_FT_P_P = $TD_FT_P_P > 0 ? $TD_FT_P_P : 0.02;
+        //echo '$T1_HT_P_P $T2_HT_P_P $TD_HT_P_P'."   $T1_HT_P_P   $T2_HT_P_P   $TD_HT_P_P \n";
         $CR_FT_F = 0;
         switch ($game_result) {
             case 0:
@@ -91,8 +117,9 @@ class RankUsers {
                 $CR_FT_F = 1 / (sqrt($T2_FT_P_P));
                 break;
         }
+
         $CR_HT_F = 0;
-        switch ($game_result) {
+        switch ($game_hresult) {
             case 0:
                 $CR_HT_F = 1 / (sqrt($TD_HT_P_P));
                 break;
@@ -103,6 +130,7 @@ class RankUsers {
                 $CR_HT_F = 1 / (sqrt($T2_HT_P_P));
                 break;
         }
+        echo $game_hresult . "\n";
         //Prediction % for Team A to win at HT
         //Prediction % for Team A to win at FT
         //Prediction % for Team B to win at HT
@@ -113,10 +141,10 @@ class RankUsers {
             $user_predictions = json_decode($prediction[\DBConstants::COL_PREDICTIONS],
                     1);
             //echo print_r($user_predictions, 1);
-            $T1_HT_P = $user_predictions['hScore1'];
-            $T2_HT_P = $user_predictions['hScore2'];
-            $T1_FT_P = $user_predictions['fScore1'];
-            $T2_FT_P = $user_predictions['fScore2'];
+            $T1_HT_P = intval($user_predictions['hScore1']);
+            $T2_HT_P = intval($user_predictions['hScore2']);
+            $T1_FT_P = intval($user_predictions['fScore1']);
+            $T2_FT_P = intval($user_predictions['fScore2']);
             $user_result = $prediction[\DBConstants::COL_RESULT];
             $user_hresult = 0;
             if ($T2_HT_P > $T1_HT_P) {
@@ -133,7 +161,7 @@ class RankUsers {
                             1 + $Goal_D_FT));
             $Score_HT = ($Goal_D_HT == 0) ? $Score_HT * 2 : $Score_HT;
             $score = $Score_FT * 30 + $Score_HT * 15;
-            echo date('c') . "  Points for user $user_id : $score HT-> $T1_HT_P - $T2_HT_P ($T1_HT - $T2_HT) FT-> $T1_FT_P - $T2_FT_P ($T1_FT - $T2_FT)  [$user_hresult  ,  $user_result]\n ";
+            echo date('c') . "  Points for user $user_id : $score HT-> $T1_HT_P - $T2_HT_P ($T1_HT - $T2_HT) FT-> $T1_FT_P - $T2_FT_P ($T1_FT - $T2_FT)  [$user_hresult  ,  $user_result] [$game_hresult  ,  $game_result]    $gameid\n ";
             //update score
             $user_predictions['ahScore1'] = $T1_HT;
             $user_predictions['ahScore2'] = $T2_HT;
@@ -141,6 +169,15 @@ class RankUsers {
             $user_predictions['afScore2'] = $T2_FT;
             self::updateUserPoints($user_id, $gameid, $score,
                     json_encode($user_predictions));
+        }
+    }
+
+    public static function revertRanking($game_id) {
+        try {
+            // get user info from db
+            //$revertQuery = 
+        } catch (Exception $e) {
+            echo 'Exception' . $e->getMessage();
         }
     }
 
@@ -184,7 +221,7 @@ class RankUsers {
      * @return boolean
      */
     private static function updateUserPoints($userid, $gameid, $score,
-            $predictions) {
+            $predictions, $processed = 1) {
         try {
             \Model_UserDataModel::initializeUserScores($userid);
             \Fuel\Core\DB::start_transaction(DBConstants::DB_NAME);
@@ -207,7 +244,7 @@ class RankUsers {
             $query = \Fuel\Core\DB::query("UPDATE $table SET points=$cumPoints, metadata='$json' WHERE user_id=$userid");
             $query->execute(DBConstants::DB_NAME);
             $table = DBConstants::TABLE_RESULTS;
-            $query = \Fuel\Core\DB::query("UPDATE $table SET processed=1 WHERE game_id=$gameid");
+            $query = \Fuel\Core\DB::query("UPDATE $table SET processed=$processed WHERE game_id=$gameid");
             $query->execute(DBConstants::DB_NAME);
             \Fuel\Core\DB::commit_transaction(DBConstants::DB_NAME);
             return true;
