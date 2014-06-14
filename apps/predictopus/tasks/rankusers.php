@@ -306,7 +306,7 @@ class RankUsers {
             $query = \Fuel\Core\DB::query("select count(*) as count from $table where game_id=$gameid and $key=$val");
             $result = $query->execute(DBConstants::DB_NAME)->as_array();
             //echo print_r($result, 1);
-            return $result[0]['count'];
+            return intval($result[0]['count']);
         } catch (Exception $e) {
             logger(\Fuel\Core\Fuel::L_ERROR,
                     "Error while getting prediction " . $e->getMessage(),
