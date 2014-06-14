@@ -16,7 +16,7 @@
             {
                 "modules": [
                     {
-                        "module": "fifa/news",
+                        "module": "fifa/livescore",
                         "params": {                           
                         }
                     }
