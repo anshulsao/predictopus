@@ -55,7 +55,11 @@
                 {{#p}}data-show-summary='1'{{/p}} class="btn btn-primary btn-sm {{#resultDec}}{{#timeover}}hidden{{/timeover}}{{/resultDec}}" data-gameid="{{id}}">
                 {{^p}}Save{{/p}}{{#p}}Edit{{/p}} Prediction{{#timeover}} - Oops Too Late{{/timeover}}</button>
         <button type="button" id='pn-login' class="btn btn-primary btn-sm">Login to Predict</button>
-
+        
+        {{#nextGame}}
+        <a href="/world-cup/game/{{nextGame}}" id="pn-nextmtch" class="btn btn-default btn-sm {{^p}}hidden{{/p}}">
+            Next Match <span class="glyphicon glyphicon-chevron-right"></span></a>
+        {{/nextGame}}        
     </div>
     <div class='col-md-12' style="margin-top:15px;">
         <div class="fb-like" data-href="{{url}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>

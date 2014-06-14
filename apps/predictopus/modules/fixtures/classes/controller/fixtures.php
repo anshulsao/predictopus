@@ -17,8 +17,8 @@ class Controller_Fixtures extends \Controller_ModuleBase {
     public function action_index() {
         $tournamentId = $this->getParam('tournamentId');
         $model = \Model_OpenFootballModel::getInstance($tournamentId);
-        $modData = $model->getFullFixtures($tournamentId);
-        logger(\Fuel\Core\Fuel::L_DEBUG, print_r($modData, 1), __METHOD__);
+        $modData = $model->getFullFixtures($tournamentId); 
+ //       logger(\Fuel\Core\Fuel::L_DEBUG, print_r($modData, 1), __METHOD__);
         $data = array(
             "moduleId" => 'full-fixtures',
             "moduleClasses" => '',

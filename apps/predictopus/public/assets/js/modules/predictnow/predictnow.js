@@ -17,7 +17,7 @@ YCustom.later(10, window, function() {
         var gameid = submit.getAttribute('data-gameid');
         var showSummary = submit.getAttribute('data-show-summary');
         if (showSummary) {
-                parseData(false);
+            parseData(false);
         }
 
         submit.on('click', function() {
@@ -65,6 +65,9 @@ YCustom.later(10, window, function() {
                                     showMessage(resO.message, 'error');
                                 } else {
                                     submit.setHTML('Edit Prediction');
+                                    if (Y.one('#pn-nextmtch')) {
+                                        Y.one('#pn-nextmtch').removeClass('hidden');
+                                    }
                                 }
                             }
                         }
@@ -98,10 +101,10 @@ YCustom.later(10, window, function() {
          */
         function validate(hScore1, hScore2, fScore1, fScore2) {
             var error = false;
-            if(!fScore1 || !fScore2){
+            if (!fScore1 || !fScore2) {
                 error = 'Full time score prediction is mandatory.';
             }
-            if(!hScore1 || !hScore2){
+            if (!hScore1 || !hScore2) {
                 error = 'We have made half time score prediction mandatory. '
                         + 'If you predicted earlier, you can update your prediction or leave it as is.';
             }
