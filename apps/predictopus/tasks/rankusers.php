@@ -12,21 +12,64 @@ use \DBConstants;
 
 class RankUsers {
 
+    public static function emailUsers() {
+        $getUsersQuery = "select * from users where id=3";
+        $query = \Fuel\Core\DB::query($getUsersQuery);
+        $users = $query->execute()->as_array();
+        foreach ($users as $user) {
+            $emailadd = $user['email'];
+            $name = $user['username'];
+            \Package::load('email');
+            $email = \Email::forge();
+//TODO: use a view file to generate the email message
+            $email->html_body(
+                    'Test'
+            );
+
+            $email->subject('ABC');
+            $email->from('feedback@playpredictopus.com', 'Predictopus');
+            $email->to($emailadd, $name);
+            try {
+                $email->send();
+            }// this should never happen, a users email was validated, right?
+            catch (\EmailValidationFailedException $e) {
+                echo 'Exception' . $e->getMessage();
+            } catch (\Exception $e) {
+                echo 'Exception' . $e->getMessage();
+            }
+        }
+    }
+
     public static function notifyUsers() {
-        $notification = 'Test Notification';
+        $notification = 'Test Notification http://www.playpredictopus.com';
         $href = 'http://www.playpredictopus.com';
         try {
             // get user info from db
-            $getUsersQuery = "select * from users_metadata where `key`='uid' and parent_id=4";
+            $getUsersQuery = "select * from users_metadata left join users_providers on users_providers.parent_id=users_metadata.parent_id where `key`='uid' and users_metadata.parent_id=3";
             $query = \Fuel\Core\DB::query($getUsersQuery);
             $users = $query->execute()->as_array();
             foreach ($users as $user) {
                 $uid = $user['uid'];
-
-                $url = '';
-                // create post request
+                $accessToken = '311171435643838|21N9NhUC73eRdYbFWS3Wollc62U';
+                $url = "https://graph.facebook.com/$uid/notifications";
+                $method = 'POST';
+                $params = array(
+                    //'href' => $href,
+                    'template' => $notification,
+                    'access_token' => $accessToken
+                );
                 $curl = \Fuel\Core\Request::forge($url, 'curl');
-
+                $curl->set_method($method);
+                // create post request               
+                $curl->set_params($params);
+                try {
+                    $response = $curl->execute()->response();
+                    echo print_r($response, 1);
+                } catch (\Fuel\Core\RequestStatusException $e) {
+                    echo $e->getMessage();
+                } catch (\Fuel\Core\RequestException $e) {
+                    echo $e->getMessage();
+                }
                 // send
             }
         } catch (Exception $e) {
@@ -47,13 +90,13 @@ class RankUsers {
         }
     }
 
-    public static function correctHalfResults($gameid = 809) {        
+    public static function correctHalfResults($gameid = 809) {
         $predictions = \Model_UserDataModel::getPredictionsGame($gameid);
         foreach ($predictions as $prediction) {
             $id = $prediction['id'];
             $user_predictions = json_decode($prediction[\DBConstants::COL_PREDICTIONS],
                     1);
-            
+
             $T1_HT_P = $user_predictions['hScore1'];
             $T2_HT_P = $user_predictions['hScore2'];
             $htResult = 0;
@@ -63,8 +106,8 @@ class RankUsers {
             if ($T2_HT_P > $T1_HT_P) {
                 $htResult = 2;
             }
-            echo $id .') htResult='.$htResult." Correcting Half result - ($T1_HT_P - $T2_HT_P) $gameid\n";
-            $updateQuery = 'update c_users_predictions set hresult=' . $htResult . ' where id='.$id;
+            echo $id . ') htResult=' . $htResult . " Correcting Half result - ($T1_HT_P - $T2_HT_P) $gameid\n";
+            $updateQuery = 'update c_users_predictions set hresult=' . $htResult . ' where id=' . $id;
             $query = \Fuel\Core\DB::query($updateQuery);
             $query->execute();
         }
