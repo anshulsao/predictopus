@@ -19,7 +19,7 @@ class Controller_LeaderBoard extends \Controller_ModuleBase {
         $limit = $this->getParam('showleaders');
         $lead = Model_LeaderBoard::getLeaderBoard($limit);
         $modData = array('leader' => $lead);
-        logger(400, print_r($modData,1), __METHOD__);
+        //logger(400, print_r($modData,1), __METHOD__);
         $data = array(
             "moduleId" => 'leaderboard',
             "moduleClasses" => '',
