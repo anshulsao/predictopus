@@ -37,10 +37,14 @@ body {
 
 img.fb-login {
     max-height: 40px;
+    margin-top: 10px;
+    cursor: pointer;
 }
 span.lgn-mod-text {
     margin-left: 20px;
     font-style: oblique;
+    display: block;
+    margin-top: 30px;
 }
 div.modal-dialog {
     margin-top: 100px!important;

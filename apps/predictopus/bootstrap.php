@@ -28,6 +28,7 @@ Autoloader::add_classes(array(
     'PageTracking' => ROOT . 'fwk/classes/pagetracking.php',
     'DeviceWrapper' => ROOT . 'fwk/classes/devicewrapper.php',
     'OmnitureMeasurement' => ROOT . 'fwk/classes/appmeasurement.php',
+    'Auth\\Auth_CustomOpauth' => APPPATH. 'classes/auth/customopauth.php'
 ));
 
 // Register the autoloader

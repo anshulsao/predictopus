@@ -18,7 +18,7 @@ class Controller_Login extends \Controller_ModuleBase {
 
     public function action_oauth($provider = null) {
         // bail out if we don't have an OAuth provider to call       
-        if ($provider === null) {            
+        if ($provider === null) {
             \Response::redirect_back();
         }
         //logger(400, $_SERVER['HTTP_HOST']);
@@ -34,7 +34,7 @@ class Controller_Login extends \Controller_ModuleBase {
         // Opauth can throw all kinds of nasty bits, so be prepared
         try {
             // get the Opauth object
-            $opauth = \Auth\Auth_Opauth::forge(array(), false);
+            $opauth = \Auth\Auth_CustomOpauth::forge(array(), false);
 
             // and process the callback
             try {
@@ -73,7 +73,7 @@ class Controller_Login extends \Controller_ModuleBase {
                 case 'logged_in':
                     logger(\Fuel\Core\Fuel::L_DEBUG, 'LOGGEDIN', __METHOD__);
                     \Auth\Auth::update_user(
-                            array(                               
+                            array(
                                 'uid' => $opauth->get('auth.uid', ''),
                             )
                     );
@@ -94,7 +94,7 @@ class Controller_Login extends \Controller_ModuleBase {
                     \Auth\Auth::update_user(
                             array(
                                 'nickname' => $opauth->get('auth.info.first_name',
-                                        ''),
+                                        $opauth->get('auth.info.name', '')),
                                 'profilepic' => $opauth->get('auth.info.image',
                                         ''),
                                 'bdate' => $opauth->get('auth.raw.birthday', ''),
@@ -125,8 +125,8 @@ class Controller_Login extends \Controller_ModuleBase {
             return "<script>window.close();</script>";
         }
     }
-    
-    public static function addUserInSystem(){
+
+    public static function addUserInSystem() {
         // Add user to global league
         $leagueid = \Fuel\Core\Config::get('global_league', 1);
         \Model_UserDataModel::addUserToLeague($leagueid);

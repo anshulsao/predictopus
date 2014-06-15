@@ -33,17 +33,6 @@
                     }
                 ],
                 "slot": "rslot2"
-            },
-            {
-                "modules": [
-                    {
-                        "module": "fifa/standings",
-                        "params": {
-                            
-                        }
-                    }
-                ],
-                "slot": "rslot3"
             }
         ]
     }

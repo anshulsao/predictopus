@@ -2,16 +2,29 @@ YCustom.later(10, window, function() {
     YCustom.use('node', 'io', 'json-parse', function(Y) {
 
         var fbLogin = Y.all("#lgn-fb, #fb-lgn-modal");
+        var twLogin = Y.all("#lgn-tw, #tw-lgn-modal");
         var logoutText = Y.one("#sign-out");
 
         var host = window.location.host;
         try {
-            fbLogin.on("click", triggerProviderLogin);
+            fbLogin.on("click", function(){
+                triggerProviderLogin('facebook');
+            });
+        } catch (e) {
+
+        }
+        try {
+            twLogin.on("click", function(){
+                triggerProviderLogin('twitter');
+            });
         } catch (e) {
 
         }
         Y.Global.on("global-fb-login", function(e) {
-            triggerProviderLogin();
+            triggerProviderLogin('facebook');
+        });
+        Y.Global.on("global-tw-login", function(e) {
+            triggerProviderLogin('twitter');
         });
 
         if (logoutText) {
@@ -38,8 +51,8 @@ YCustom.later(10, window, function() {
                 });
             });
         }
-        function triggerProviderLogin() {
-            var url = "http://" + host + "/login/oauth/facebook";
+        function triggerProviderLogin(provider) {
+            var url = "http://" + host + "/login/oauth/"+provider;
             var winObj = Y.one(window)
                     , width = 600
                     , height = 480;

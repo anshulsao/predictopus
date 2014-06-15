@@ -9,12 +9,24 @@ body {
 }
 
 .fb-icon-29px{
-    width: 30px;
-    height: 20px;
+    width: 27px;
+    height: 26px;
     float: left;
-    background-image: url($cdn + "/assets/img/fb.png" + $version);
-    background-size: 20px;
+    background-image: url($cdn + "/assets/img/sprite.png?prod-1");
     background-repeat: no-repeat;
+    background-position: -4px -2px;
+    background-size: 150px;
+    cursor: pointer;
+}
+.tw-icon-29px{
+    width: 27px;
+    height: 26px;
+    float: left;
+    background-image: url("/assets/img/sprite.png?prod-1");
+    background-repeat: no-repeat;
+    background-position: -70px -2px;
+    background-size: 150px;
+    cursor: pointer;
 }
 .flag {
     background:url($cdn + "/assets/img/flags.png"+ $version) no-repeat;
