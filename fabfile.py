@@ -62,8 +62,10 @@ def deploy_to():
         sudo("rm -rf apps/predictopus/cache/*.cache")
         sudo('service apache2 reload')
 
-def debug():
-    sudo("date")
+def clear_cache():
+    with cd("/var/code"):
+        sudo("rm -rf apps/predictopus/cache/*.cache")
+    #sudo('service apache2 reload')
 
     
     

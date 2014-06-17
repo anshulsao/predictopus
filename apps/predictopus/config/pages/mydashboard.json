@@ -27,7 +27,7 @@
                     {
                         "module": "leaderboard",
                         "params": {
-                            "showleaders": "10"
+                            "showleaders": "20"
                         },
                         "cache": 1
                     }

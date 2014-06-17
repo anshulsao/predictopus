@@ -33,6 +33,17 @@
                     }
                 ],
                 "slot": "rslot2"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "fifa/news",
+                        "params": {  
+                            "hashTag": ""
+                        }
+                    }
+                ],
+                "slot": "rslot3"
             }
         ]
     }
