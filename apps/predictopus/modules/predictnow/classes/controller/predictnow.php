@@ -59,12 +59,18 @@ class Controller_Predictnow extends \Controller_ModuleBase {
     public function action_xhr_save() {
 
 // Grab all the params
+        $model = \Model_OpenFootballModel::getInstance(8);
         $hScore1 = $this->getParam('hScore1', "");
         $hScore2 = $this->getParam('hScore2', "");
         $fScore1 = $this->getParam('fScore1', "");
         $fScore2 = $this->getParam('fScore2', "");
         $result = $this->getParam('result');
         $gameid = $this->getParam('gameid');
+        $game = $model->getGameDetails($gameid);
+        $time = strtotime($game['time']) + 3 * 60 * 60;
+        if ($time < strtotime("now")) {
+            return $this->jsonErrorMsg("Don't be over smart! time is up");
+        }
 
         $predictions = array(
             'hScore1' => $hScore1,
