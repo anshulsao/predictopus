@@ -5,11 +5,13 @@ namespace Predictnow;
 class Controller_Predictnow extends \Controller_ModuleBase {
 
     public static $gameids = array(
-            803, 804, 809, 810, 815, 816, 821, 822, 827, 828, 833, 834, 839, 840,
-            805, 845, 846, 806, 811, 812, 817, 818, 823, 824, 829, 830, 835, 836,
-            841, 842, 847, 848
-        );
-    public function action_index() {        
+        803, 804, 809, 810, 815, 816, 821, 822, 827, 828, 833, 834, 839, 840, 805,
+        845, 846, 806, 811, 812, 817, 818, 823, 824, 829, 830, 835, 836, 841, 842,
+        847, 848, 807, 808, 813, 814, 819, 820, 825, 826, 831, 832, 837, 838, 843,
+        844, 849, 850
+    );
+
+    public function action_index() {
         $gameId = $this->getParam('gameid', 817);
 //logger(400, print_r($gameId, 1));
         $model = \Model_OpenFootballModel::getInstance(8);
