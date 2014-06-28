@@ -12,7 +12,7 @@
  */
 return array(
     'cdn' => '//static.playpredictopus.com',
-    'cdnversion' => 'prod-000010',
+    'cdnversion' => 'prod-000050',
     'profiling' => false,
     'activeLeague' => 1,
     'disqus_params' => array(
