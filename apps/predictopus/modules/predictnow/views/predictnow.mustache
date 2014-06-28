@@ -1,6 +1,6 @@
 {{#game}}
 <h1 class='fx-title-gm pdh-15 bg mod-title'>
-    {{#super16}}<span class="label label-danger fl-right"> Super 16 match</span>{{/super16}}
+    {{#super16}}<span class="label label-success fl-right"> Super 16 match</span>{{/super16}}
     Predict results - {{date}} - {{{team1Name}}} vs {{{team2Name}}}
 </h1>
 <div class='bg-neg fnt-neg pd-15'>
@@ -63,6 +63,10 @@
         <a href="/world-cup/game/{{nextGame}}" id="pn-nextmtch" class="btn btn-default btn-sm {{^p}}hidden{{/p}}">
             Next Match <span class="glyphicon glyphicon-chevron-right"></span></a>
         {{/nextGame}}        
+    </div>
+    <div class="alert alert-warning" role="alert" style="margin-top:15px;">
+        You must predict the full time goals at the end of normal play, including any extra time. 
+        Example, if a match is drawn at 90 min, and extra time is played, goals at the end of 120 mins will be considered as full time goals. 
     </div>
     <div class='col-md-12' style="margin-top:15px;">
         <div class="fb-like" data-href="{{url}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
