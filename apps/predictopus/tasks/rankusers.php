@@ -225,12 +225,17 @@ class RankUsers {
     }
 
     public static function enrollUsers($leagueid = 2) {
-        $usersQ = "select * from users";
+        $usersQ = "select * from users where user_id>338";
         $query = \Fuel\Core\DB::query($usersQ);
         $users = $query->execute()->as_array();
         foreach ($users as $user) {
             $userid = $user['id'];
-            \Model_UserDataModel::initializeUserScores($userid, $leagueid);
+            echo "enrolling $userid \n ";
+            try {
+                \Model_UserDataModel::initializeUserScores($userid, $leagueid);
+            } catch (Exception $ex) {
+                 echo "ERROR: enrolling $userid \n " . $ex->getMessage(). " \n";
+            }
         }
     }
 
