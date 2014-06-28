@@ -224,6 +224,16 @@ class RankUsers {
         }
     }
 
+    public static function enrollUsers($leagueid = 2) {
+        $usersQ = "select * from users";
+        $query = \Fuel\Core\DB::query($usersQ);
+        $users = $query->execute()->as_array();
+        foreach ($users as $user) {
+            $userid = $user['id'];
+            \Model_UserDataModel::initializeUserScores($userid, $leagueid);
+        }
+    }
+
     public static function updateLeagueRanks() {
         try {
             \Fuel\Core\DB::start_transaction(DBConstants::DB_NAME);
