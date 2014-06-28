@@ -8,7 +8,7 @@ class Controller_Predictnow extends \Controller_ModuleBase {
         803, 804, 809, 810, 815, 816, 821, 822, 827, 828, 833, 834, 839, 840, 805,
         845, 846, 806, 811, 812, 817, 818, 823, 824, 829, 830, 835, 836, 841, 842,
         847, 848, 807, 808, 813, 814, 819, 820, 825, 826, 831, 832, 837, 838, 843,
-        844, 849, 850
+        844, 849, 850, 851, 852, 853, 854, 855, 856, 857, 858
     );
 
     public function action_index() {
@@ -37,6 +37,10 @@ class Controller_Predictnow extends \Controller_ModuleBase {
                 $nextGame = self::$gameids[$nextGameId];
             }
         }
+        $super16 = false;
+        if($gameId > 850){
+            $super16 = true;
+        }
 //logger(\Fuel\Core\Fuel::L_DEBUG, "--- " .strtotime("now"), __METHOD__);
 // check if time has passed if yes set disabled=true;
         $modData = array(
@@ -44,7 +48,8 @@ class Controller_Predictnow extends \Controller_ModuleBase {
             'timeover' => $disabled,
             'resultDec' => $resultDeclared,
             'url' => $url,
-            'nextGame' => $nextGame
+            'nextGame' => $nextGame,
+            'super16' => $super16
         );
 //logger(400, print_r($modData, 1));
         $data = array(
