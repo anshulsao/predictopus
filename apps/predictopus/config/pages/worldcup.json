@@ -1,7 +1,17 @@
 {
     "default": {
         "title": "World Cup 2014 Fixtures, Home to predict all matches | Predictopus",
-        "slots": [           
+        "slots": [ 
+            {
+                "modules": [
+                    {
+                        "module": "ads",
+                        "params": {
+                        }
+                    }
+                ],
+                "slot": "leadslot1"
+            },
             {
                 "modules": [
                     {

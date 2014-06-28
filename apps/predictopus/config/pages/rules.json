@@ -2,7 +2,16 @@
     "default": {
         "title": "Rules of the Game! Predictopus",
         "slots": [           
-            
+            {
+                "modules": [
+                    {
+                        "module": "ads",
+                        "params": {
+                        }
+                    }
+                ],
+                "slot": "leadslot1"
+            },
             {
                 "modules": [
                     {

@@ -1,0 +1,20 @@
+.collapsibleAd {
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative; }
+  .collapsibleAd.collapsed {
+    height: 105px; }
+    .collapsibleAd.collapsed .ad-collapse {
+      display: none; }
+    .collapsibleAd.collapsed .ad-expand {
+      display: inline-block; }
+  .collapsibleAd .ad-collapse {
+    display: inline-block; }
+  .collapsibleAd .ad-expand {
+    display: none; }
+  .collapsibleAd span {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    right: 52px; }

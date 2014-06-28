@@ -5,6 +5,16 @@
             {
                 "modules": [
                     {
+                        "module": "ads",
+                        "params": {
+                        }
+                    }
+                ],
+                "slot": "leadslot1"
+            },
+            {
+                "modules": [
+                    {
                         "module": "predictnow",
                         "params": {
                            

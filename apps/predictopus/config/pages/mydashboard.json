@@ -1,7 +1,17 @@
 {
     "default": {
         "title": "Your Dashboard - Check your stats, standings and profile",
-        "slots": [           
+        "slots": [    
+            {
+                "modules": [
+                    {
+                        "module": "ads",
+                        "params": {
+                        }
+                    }
+                ],
+                "slot": "leadslot1"
+            },
             {
                 "modules": [
                     {
@@ -29,7 +39,7 @@
                         "params": {
                             "showleaders": "20"
                         },
-                        "cache": 1
+                        "cache": 0
                     }
                 ],
                 "slot": "rslot2"
