@@ -1,40 +1,37 @@
 
 <h1 class='fx-title-gm pdh-15 bg mod-title'>Your statistics</h1>
 <div class="panel panel-default fnt-neg">
-  <!-- Default panel contents --> 
-  <div class="panel-body">
-    <p>Summary of your performance</p>
-  </div>
+    <!-- Default panel contents --> 
+    <div class="panel-body">
+        <p>Summary of your performance</p>
+    </div>
 
-  <!-- Table -->
-  <table class="table fnt-neg table-striped">
-      <tr>
-          {{#leagues}}
-          <th>{{name}}</th>
-          {{/leagues}}
-      </tr>
-      {{#userStat}}
-      <tr>
-          <td>
-              Total Score: {{points}}
-          </td>
-      </tr>
-      {{/userStat}}
-      <tr>
-          <td>
-              {{#leagues}}
-              Rank: {{#userStat}}{{rank}}{{/userStat}}/{{#metadata}}{{total}}{{/metadata}}
-              {{/leagues}}
-          </td>
-      </tr>
-      {{#userStat}}
-      <!--tr>
-          <td>
-              Accuracy: {{#metadata}}{{accuracy}}{{/metadata}}%
-          </td>
-      </tr-->
-      {{/userStat}}
-  </table>
+    <!-- Table -->
+    <table class="table fnt-neg table-striped">
+        <tr>
+            {{#leagues}}
+            <th>{{name}}</th>
+            {{/leagues}}
+        </tr>
+        <tr>
+            {{#leagues}}
+            <td>
+                Total Score: {{points}}
+            </td>
+            {{/leagues}}
+        </tr>
+        <tr>
+            {{#leagues}}
+            <td>              
+                Rank: {{rank}}/{{#metadata}}{{total}}{{/metadata}}             
+            </td>
+            {{/leagues}}
+        </tr>
+        <tr>
+            <td colspan="2" style="color: red"> * Participate in <strong> Super 16 </strong> league by predicting last 16 matches of the world cup
+        and stand a chance to win exciting prizes. Start Predicting Now!!</td>
+        </tr>
+    </table>
 </div>
 
 <div id='full-fixtures'>

@@ -35,6 +35,7 @@ class Model_OpenFootballModel extends \Model_Base {
         $fixtures = array();
         $queryRounds = "select * from rounds where event_id=" . $this->tournamentId;
         $results = $db->query($queryRounds);
+        $temp = array();
         while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
             $queryGames = "select * from games where round_id=" . $row['id'];
             $games = array();
@@ -48,6 +49,7 @@ class Model_OpenFootballModel extends \Model_Base {
                 if ($time < strtotime("now")) {
                     $data['matchEnded'] = true;
                 }
+                $temp[] = $data['id'];
                 array_push($games, $data);
             }
             //logger(\Fuel\Core\Fuel::L_DEBUG, print_r($row, 1), __METHOD__);
@@ -66,13 +68,12 @@ class Model_OpenFootballModel extends \Model_Base {
                 $gameDateDisp2 = $gameDateObj2->format('d M Y');
                 if ($gameDateDisp2 !== $gameDateDisp) {
                     $fixture['dispEndDate'] = $gameDateDisp2;
-                }                
-                
+                }
             }
-//            logger(\Fuel\Core\Fuel::L_DEBUG, "--->" . print_r($temp, 1), __METHOD__);
             array_push($fixtures, $fixture);
         }
-
+        logger(\Fuel\Core\Fuel::L_DEBUG, "--->" . implode(',', $temp),
+                __METHOD__);
 // populate predictions
         if (!empty($userid)) {
             $games2 = array();
@@ -89,7 +90,6 @@ class Model_OpenFootballModel extends \Model_Base {
                 $game = &$games2[$id];
                 $game['p'] = $prediction;
                 //logger(400,"*******: ". print_r($game, 1));
-                
             }
         }
         return $fixtures;
@@ -121,6 +121,8 @@ class Model_OpenFootballModel extends \Model_Base {
             'team1Name' => $team1['title'],
             'team1Code' => strtolower($team1['code']),
             'team2Name' => $team2['title'],
+            'score1' => $row2['score1'],
+            'score2' => $row2['score2'],
             'team2Code' => strtolower($team2['code']),
             'time' => $timeRaw,
             'timeDisp' => $time,

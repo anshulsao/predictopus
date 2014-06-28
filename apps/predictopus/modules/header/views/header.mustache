@@ -38,22 +38,25 @@
             {{#loggedIn}}
             <li>
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                    {{#leagues}}
-                    Rank: {{#userStat}}{{rank}}{{/userStat}}/{{#metadata}}{{total}}{{/metadata}}
-                    {{/leagues}}
+                    Ranks & Points
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
                     <li role="presentation" class="dropdown-header">{{name}}</li>
                     <li class="divider"></li>
+                    <li role="presentation" class="dropdown-header">Ranks</li>
+                    {{#leagues}}                    
                     <li role="presentation" class="dropdown-header">
-                        <span>World Cup 2014</span>
-                    </li>                  
-                    {{#userStat}}
+                        <span class='label label-success' style="font-size:11px">{{name}}: {{rank}}/{{#metadata}}{{total}}{{/metadata}}</span>
+                    </li>                    
+                    {{/leagues}}
+                    <li class="divider"></li>
+                    <li role="presentation" class="dropdown-header">Points</li>
+                    {{#leagues}}                    
                     <li role="presentation" class="dropdown-header">
-                        <span class='label label-primary' style="font-size:11px">Points earned: {{points}}</span>
+                        <span class='label label-primary' style="font-size:11px">{{name}}: {{points}}</span>
                     </li>
-                    {{/userStat}}                   
+                    {{/leagues}}                   
                 </ul>
             </li>
             <li>

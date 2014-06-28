@@ -23,7 +23,7 @@ class Controller_Header extends \Controller_ModuleBase {
         }
         $uri = \Fuel\Core\Uri::main();
 
-        $userStats = \Model_UserDataModel::getUserStats();
+        //$userStats = \Model_UserDataModel::getUserStats();
         $leagues = \Model_UserDataModel::getLeagueStats();
         foreach ($leagues as &$league) {
             try {
@@ -37,7 +37,7 @@ class Controller_Header extends \Controller_ModuleBase {
             'name' => $name,
             'email' => $email,
             'profilePic' => $profilePic,
-            'userStat' => $userStats,
+            //'userStat' => $userStats,
             'leagues' => $leagues
         );
         if (strstr($uri, 'world-cup')) {

@@ -32,7 +32,7 @@ class Create_Tables {
                 'prediction' => array('type' => 'blob', 'default' => ''),
                 'points' => array('type' => 'bigint', 'constraint' => 20),
                 'processed' => array('type' => 'tinyint', 'constraint' => 1, 'default' => '0'),
-                'modified_date' => array('type' => 'timestamp', ' default' => 'CURRENT_TIMESTAMP'),
+                'modified_date' => array('type' => 'timestamp', 'default' => 'CURRENT_TIMESTAMP'),
                     ), array('id'));
             \DBUtil::create_index(self::USERTABLE . '_predictions',
                     array('user_id', 'game_id'), 'usergame', 'UNIQUE');

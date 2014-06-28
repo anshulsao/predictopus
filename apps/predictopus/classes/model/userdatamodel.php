@@ -19,7 +19,7 @@ class Model_UserDataModel extends \Model_Base {
             if (empty($userid)) {
                 return array();
             }
-            $query = Fuel\Core\DB::query("select * from c_rel_users_league left join c_leagues on c_rel_users_league.league_id = c_leagues.league_id where user_id = $userid;");
+            $query = Fuel\Core\DB::query("select * from c_users_scores left join c_leagues on c_users_scores.league_id = c_leagues.league_id where user_id = $userid;");
             $leagues = $query->execute(self::DB_NAME)->as_array();
             return $leagues;
         } catch (Exception $e) {
@@ -166,8 +166,7 @@ class Model_UserDataModel extends \Model_Base {
             }
             $logPred = json_encode($predictions);
             logger(\Fuel\Core\Fuel::L_ERROR,
-                    "PRED: $userid predicted  $logPred for $gameid",
-                    __METHOD__);
+                    "PRED: $userid predicted  $logPred for $gameid", __METHOD__);
             Fuel\Core\DB::start_transaction(self::DB_NAME);
             $predJson = json_encode($predictions);
             $query = Fuel\Core\DB::query('insert into ' . DBConstants::TABLE_PREDICTIONS . " (user_id, game_id, result, hresult, prediction) values ($userid, $gameid, $result, $htResult, '$predJson') on duplicate key update result=$result, hresult=$htResult, prediction='$predJson'");
@@ -183,7 +182,7 @@ class Model_UserDataModel extends \Model_Base {
         }
     }
 
-    public static function initializeUserScores($userid = '') {
+    public static function initializeUserScores($userid = '', $leagueid = 1) {
         if (empty($userid)) {
             $userid = \Auth\Auth::get('id');
         }
@@ -192,15 +191,14 @@ class Model_UserDataModel extends \Model_Base {
         }
         try {
             Fuel\Core\DB::start_transaction(self::DB_NAME);
-            $query = Fuel\Core\DB::query("insert into c_users_scores (user_id,points,metadata) values($userid,0,'{\"played\":\"0\", \"correct\":\"0\"}')");
+            $query = Fuel\Core\DB::query("insert into c_users_scores (user_id,points,metadata,league_id) values($userid,0,'{\"played\":\"0\", \"correct\":\"0\"}', $leagueid)");
             $query->execute(self::DB_NAME);
             Fuel\Core\DB::commit_transaction(self::DB_NAME);
             return true;
         } catch (Exception $e) {
             Fuel\Core\DB::rollback_transaction(self::DB_NAME);
             logger(\Fuel\Core\Fuel::L_ERROR,
-                    "User already initialized " . $e->getMessage(),
-                    __METHOD__);
+                    "User already initialized " . $e->getMessage(), __METHOD__);
             return false;
         }
     }

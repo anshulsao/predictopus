@@ -11,14 +11,27 @@
  *
  * @author asao
  */
+
 namespace LeaderBoard;
 
 class Controller_LeaderBoard extends \Controller_ModuleBase {
-    
-    function action_index(){
+
+    function action_index() {
         $limit = $this->getParam('showleaders');
-        $lead = Model_LeaderBoard::getLeaderBoard($limit);
-        $modData = array('leader' => $lead);
+        $leagues = Model_LeaderBoard::getLeagues();
+        $leaders = array();
+        foreach ($leagues as $league) {
+            $id = $league['league_id'];
+            $lead = Model_LeaderBoard::getLeaderBoard($limit, $id);
+            $name = $league['name'];
+            $isActive = $id == 7 ? true : false;
+            $idl = 'league-' . $id;
+            $leaders[] = array('id'=> $idl, 'leader' => $lead, 
+                'name' => $name, 'active' => $isActive);
+        }
+
+
+        $modData = array('leagues' => $leaders);
         //logger(400, print_r($modData,1), __METHOD__);
         $data = array(
             "moduleId" => 'leaderboard',
@@ -30,4 +43,5 @@ class Controller_LeaderBoard extends \Controller_ModuleBase {
         );
         return $this->render($data);
     }
+
 }

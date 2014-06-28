@@ -16,7 +16,7 @@ class Controller_MyDashBoard extends \Controller_ModuleBase {
         }
         $tournamentId = 8;
         $model = \Model_OpenFootballModel::getInstance($tournamentId);
-        $userStats = \Model_UserDataModel::getUserStats();
+        //$userStats = \Model_UserDataModel::getUserStats();
         $leagues = \Model_UserDataModel::getLeagueStats();
         foreach ($leagues as &$league) {
             try {
@@ -33,7 +33,7 @@ class Controller_MyDashBoard extends \Controller_ModuleBase {
         $now = strtotime('now');
         $nextDate = '';
         foreach ($fixtures as $fixture) {
-            foreach ($fixture['games'] as $game) {
+            foreach ($fixture['games'] as $key => $game) {
                 $date = strtotime($game['time']) + 3 * 60 * 60;
                 if ($date < $now) {
                     $prevGames[] = $game;
@@ -50,7 +50,7 @@ class Controller_MyDashBoard extends \Controller_ModuleBase {
             'next' => $nextGames,
             'nextDate' => $nextDate,
             'leagues' => $leagues,
-            'userStat' => $userStats,
+            //'userStat' => $userStats,
             'showDate' => true
         );
         $data = array(

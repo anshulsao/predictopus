@@ -1,17 +1,28 @@
 <div class='mod-right-wrapper'>
     <div class="pdh-15 bg mod-title">Leader Board</div>
-    <table class="table table-striped bg-neg fnt-neg pdh-15">
-        <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Points</th>
-        </tr>
-        {{#leader}}
-        <tr>
-            <td>{{rank}}</td>
-            <td>{{value}}</td>
-            <td>{{points}}</td>
-        </tr>
-        {{/leader}}
-    </table>
+    <ul class="nav nav-tabs" role="tablist">
+        {{#leagues}}
+        <li {{#active}}class="active" {{/active}}><a href="#{{id}}" role="tab" data-toggle="tab">{{name}}</a></li>        
+        {{/leagues}}
+    </ul>
+    <div class="tab-content">
+        {{#leagues}}
+        <div class="tab-pane {{#active}}active{{/active}}" id="{{id}}">
+            <table class="table table-striped bg-neg fnt-neg pdh-15" >
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+                {{#leader}}
+                <tr>
+                    <td>{{rank}}</td>
+                    <td>{{value}}</td>
+                    <td>{{points}}</td>
+                </tr>
+                {{/leader}}
+            </table>  
+        </div>
+        {{/leagues}}
+    </div>
 </div>

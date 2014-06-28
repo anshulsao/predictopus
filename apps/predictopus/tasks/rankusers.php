@@ -233,7 +233,7 @@ class RankUsers {
             $leagues = $query->execute()->as_array();
             foreach ($leagues as $league) {
                 $league_id = $league['league_id'];
-                $countQuery = "select count(*) as count from c_rel_users_league where league_id=$league_id";
+                $countQuery = "select count(*) as count from c_users_scores where league_id=$league_id";
                 $query = \Fuel\Core\DB::query($countQuery);
                 $countResult = $query->execute()->as_array();
                 $count = $countResult[0]["count"];
@@ -243,10 +243,11 @@ class RankUsers {
                 echo "Updating " . $league['name'] . "($league_id) with $metadata \n";
                 $query = \Fuel\Core\DB::query($updateQuery);
                 $query->execute();
+                $rankingQuery = "update c_users_scores set rank = (select rank from (SELECT points, gid AS ID, @curRank := @curRank + 1 AS rank from c_users_scores, (SELECT @curRank := 0) r where league_id=$league_id ORDER BY points DESC) as x where x.ID=c_users_scores.gid) where league_id=$league_id;";
+                $query = \Fuel\Core\DB::query($rankingQuery);
+                $query->execute();
             }
-            $rankingQuery = "update c_rel_users_league set rank = (select rank from (SELECT id AS ID, @curRank := @curRank + 1 AS rank from (select points,id from c_rel_users_league b LEFT JOIN c_users_scores a on a.user_id =b.user_id) p, (SELECT @curRank := 0) r ORDER BY points DESC) as x where x.ID=c_rel_users_league.id)";
-            $query = \Fuel\Core\DB::query($rankingQuery);
-            $query->execute();
+
             \Fuel\Core\DB::commit_transaction(DBConstants::DB_NAME);
         } catch (Exception $e) {
             \Fuel\Core\DB::rollback_transaction(DBConstants::DB_NAME);
@@ -266,26 +267,32 @@ class RankUsers {
     private static function updateUserPoints($userid, $gameid, $score,
             $predictions, $processed = 1) {
         try {
-            \Model_UserDataModel::initializeUserScores($userid);
+            $leagueQuery = "select * from c_leagues";
+            $query = \Fuel\Core\DB::query($leagueQuery);
+            $leagues = $query->execute()->as_array();
             \Fuel\Core\DB::start_transaction(DBConstants::DB_NAME);
             $table = DBConstants::TABLE_PREDICTIONS;
             $query = \Fuel\Core\DB::query("UPDATE $table SET points=$score, processed=1, prediction='$predictions' WHERE user_id=$userid && game_id=$gameid");
             $query->execute(DBConstants::DB_NAME);
+            foreach ($leagues as $league) {
+                $league_id = $league['league_id'];
+                \Model_UserDataModel::initializeUserScores($userid, $league_id);
+            }
             $userQuery = \Fuel\Core\DB::query("select * from c_users_scores where user_id=$userid");
             $results = $userQuery->execute(DBConstants::DB_NAME)->as_array();
-
-            $result = $results[0];
-            $cumPoints = $result['points'] + $score;
-            $stats = json_decode($result['metadata'], 1);
-            $stats['played'] += 1;
-            if ($score > 0) {
-                $stats['correct'] +=1;
+            foreach ($results as $result) {
+                $id = $result['gid'];
+                $cumPoints = $result['points'] + $score;
+                $stats = json_decode($result['metadata'], 1);
+                $stats['played'] += 1;
+                if ($score > 0) {
+                    $stats['correct'] +=1;
+                }
+                $json = json_encode($stats);
+                $table = DBConstants::TABLE_USER_SCORES;
+                $query = \Fuel\Core\DB::query("UPDATE $table SET points=$cumPoints, metadata='$json' WHERE gid=$id");
+                $query->execute(DBConstants::DB_NAME);
             }
-            $json = json_encode($stats);
-
-            $table = DBConstants::TABLE_USER_SCORES;
-            $query = \Fuel\Core\DB::query("UPDATE $table SET points=$cumPoints, metadata='$json' WHERE user_id=$userid");
-            $query->execute(DBConstants::DB_NAME);
             $table = DBConstants::TABLE_RESULTS;
             $query = \Fuel\Core\DB::query("UPDATE $table SET processed=$processed WHERE game_id=$gameid");
             $query->execute(DBConstants::DB_NAME);
