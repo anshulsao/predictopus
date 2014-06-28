@@ -1,36 +1,68 @@
 <li class='fx-game fnt-neg bg-neg col-sm-12'>
     <a href='/world-cup/game/{{id}}' class='fnt-neg'>
         <div class="row fx-game-int">
-            <div class='col-xs-12 col-sm-1 fx-time'>{{timeDisp}} </div>
-            <div class='col-xs-12 col-sm-7 fx-teams'>
-                <div class='col-xs-6'>
+            <div class='col-xs-12 col-sm-2 fx-time'>
+                <div class='col-xs-6 col-sm-12 pd-0' style="margin-top:5px">
+                    {{date}}
+                </div>
+                <div class='col-xs-6 col-sm-12 pd-0' style="margin-top:5px">
+                    {{timeDisp}} 
+                </div>
+
+            </div>
+            <div class='col-xs-12 col-sm-3 fx-teams pd-0' style="
+    padding-bottom: 10px!important;">
+                <div class='col-xs-6 col-sm-12 pd-0' style="margin-top:5px">
                     <i class='flag {{team1Code}}'></i>{{{team1Name}}}
                 </div>
-                <div class='col-xs-6'>
+                <div class='col-xs-6 col-sm-12 pd-0' style="margin-top:5px">
                     <i class='flag {{team2Code}}'></i>{{{team2Name}}}  
                 </div>
+            </div>     
+            <div class='col-xs-12 col-sm-4  pd-0'>
+                <div class='col-xs-12 pd-0' style="margin-top:5px">
+                    {{#p}}{{#prediction}}
+                    <span class="label label-success">
+                        Your Predictions - Half Time: {{hScore1}}-{{hScore2}} Full Time: {{fScore1}}-{{fScore2}}
+                    </span>
+                    {{/prediction}}{{/p}}
+                    {{^p}}
+                    <span class="label label-default">
+                        No Predictions Made.
+                    </span>
+                    {{/p}}
+                </div>
+                <div class='col-xs-12 pd-0' style="margin-top:5px"> 
+                    {{#matchEnded}}
+                    <span class="label label-warning">
+                        Match Result - Full Time: {{score1}}-{{score2}}
+                    </span>
+                    {{/matchEnded}}
+                </div>
+            </div> 
+            <div class='col-xs-6 col-sm-3 fx-actions'>
+                <div class='col-xs-12 pd-0' style="margin-top:5px">
+                    {{#p}}{{#prediction}}{{#processed}}
+                    <span class='label label-primary'>{{points}} Points</span>
+                    {{/processed}}{{/prediction}}{{/p}}
+                    {{^p}}
+                    <span class='label label-default'> - </span>
+                    {{/p}}
+                    {{#p}}{{#prediction}}{{^processed}}
+                    <span class='label label-default'>Not evaluated</span>
+                    {{/processed}}{{/prediction}}{{/p}}
+                </div>
+                <div class='col-xs-12 pd-0' style="margin-top:5px">
+                    <button type="button" 
+                            class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} 
+                            btn-xs {{#matchEnded}}hidden{{/matchEnded}}">
+                        {{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
+                    {{#matchEnded}}
+                    <span class='btn btn-default btn-xs'>Match over</span>
+                    {{/matchEnded}}
+                </div>
+
             </div>
-            <div class='col-xs-6 col-sm-2 fx-venue'>
-                <span>{{#showDate}}{{date}}{{/showDate}}{{^showDate}}{{{groundTitle}}}{{/showDate}}</span>
-            </div>
-            <div class='col-xs-6 col-sm-2 fx-actions'>
-                <button type="button" 
-                        class="btn {{#p}}btn-success{{/p}} {{^p}}btn-info{{/p}} 
-                        btn-xs {{#matchEnded}}hidden{{/matchEnded}}">
-                    {{#p}}Edit Prediction!{{/p}}{{^p}}Predict Now!{{/p}}</button>
-                {{#matchEnded}}
-                <span class='btn btn-default btn-xs'>Match over</span>
-                {{/matchEnded}}
-            </div>
-        </div>
-        {{#p}}{{#prediction}}
-        <div class="label label-success col-sm-offset-1">
-            Your Predictions - Half Time: {{hScore1}}-{{hScore2}} Full Time: {{fScore1}}-{{fScore2}}
-        </div>
-        {{#processed}}
-        <span class='label label-primary'>{{points}} Points</span>
-        {{/processed}}
-        {{/prediction}}
-        {{/p}}
+        </div>        
     </a>
 </li>

@@ -17,8 +17,8 @@
     display: block;
     width: 100%;
     overflow: hidden; }
-#full-fixtures .fx-game-int div {
-  line-height: 30px; }
+#full-fixtures .fx-game-int > div {
+  overflow: hidden; }
 #full-fixtures .fx-teams .flag {
   border: solid 1px #eee;
   box-shadow: 2px 2px 2px 0px #666;
@@ -33,6 +33,4 @@
   color: green;
   font-weight: bold; }
 #full-fixtures .label {
-  display: inline-block;
-  margin-top: 15px;
-  margin-right: 5px; }
+  white-space: normal; }
