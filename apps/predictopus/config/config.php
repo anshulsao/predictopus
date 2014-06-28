@@ -47,6 +47,7 @@ return array(
         'public_key' => 'u6xptgT0nNYJUjBoOzTu9izeSBgmGQY3duHTbQ2YTFg1yYpIzM0dHnhRVuGDKd6k',
         'private_key' => 'qb5Gm3fWb313q2YOiZ3zNzBZOh7R0diwtEULPFqQE0ZDcPYipU8AH3Ro6aR0uLj7'
     ),
+    'activeLeague' => 7,
     /**
      * Default location for the file cache
      */

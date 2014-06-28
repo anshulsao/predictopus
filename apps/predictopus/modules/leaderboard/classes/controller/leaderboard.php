@@ -24,7 +24,8 @@ class Controller_LeaderBoard extends \Controller_ModuleBase {
             $id = $league['league_id'];
             $lead = Model_LeaderBoard::getLeaderBoard($limit, $id);
             $name = $league['name'];
-            $isActive = $id == 7 ? true : false;
+            $activeId = \Fuel\Core\Config::get('activeLeague');
+            $isActive = $id == $activeId? true : false;
             $idl = 'league-' . $id;
             $leaders[] = array('id'=> $idl, 'leader' => $lead, 
                 'name' => $name, 'active' => $isActive);

@@ -14,6 +14,7 @@ return array(
     'cdn' => '//static.playpredictopus.com',
     'cdnversion' => 'prod-000009',
     'profiling' => false,
+    'activeLeague' => 1,
     'disqus_params' => array(
         'forum' => 'predictopus',
         'public_key' => 'u6xptgT0nNYJUjBoOzTu9izeSBgmGQY3duHTbQ2YTFg1yYpIzM0dHnhRVuGDKd6k',
