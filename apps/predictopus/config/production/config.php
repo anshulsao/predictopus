@@ -12,7 +12,7 @@
  */
 return array(
     'cdn' => '//static.playpredictopus.com',
-    'cdnversion' => 'prod-000008',
+    'cdnversion' => 'prod-000009',
     'profiling' => false,
     'disqus_params' => array(
         'forum' => 'predictopus',
