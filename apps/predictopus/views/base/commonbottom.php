@@ -24,14 +24,17 @@
 <script id="stickyjs">
     YCustom.use('node', 'services', function(Y) {
         Y.later(1000, this, function() {
-            if (Y.one("#right")) {
-                new Y.services.StickyService({
-                    node: Y.one("#right>div"),
-                    stickPosition: "bottom",
-                    offsetWidth: 30
-                });
-
-            }            
+            try {
+                if (Y.one("#right")) {
+                    new Y.services.StickyService({
+                        node: Y.one("#right>div"),
+                        stickPosition: "bottom",
+                        offsetWidth: 30
+                    });
+                }
+            } catch (e) {
+                console.log('Sticky Service failed');
+            }
         });
     });
 
