@@ -20,7 +20,9 @@ YCustom.later(10, window, function() {
             parseData(false);
         }
 
+        console.log('Button Click event attached');
         submit.on('click', function() {
+            console.log('Button Clicked');
             parseData(true);
         });
         function parseData(fireSave) {
@@ -30,7 +32,9 @@ YCustom.later(10, window, function() {
             var fScore2 = fScore2Ele.get('value');
             var hScore = hScore1 && hScore2 ? hScore1 + " - " + hScore2 : '';
             var fScore = fScore1 && fScore2 ? fScore1 + " - " + fScore2 : '';
+            console.log('All values extracted');
             if (validate(hScore1, hScore2, fScore1, fScore2)) {
+                console.log('Validation Success');
                 var result = fScore1 > fScore2 ? 1 : fScore1 < fScore2 ? 2 : 0;
                 // team1/2Global vars set in mustache
                 try {
@@ -45,8 +49,10 @@ YCustom.later(10, window, function() {
                     'teamW': teamW
                 };
                 var html = Mustache.render(template, data);
+                console.log('Mushtache Rendered');
                 showMessage(html, 'info');
                 if (fireSave) {
+                    console.log('XHR INITIALIZED');
                     var cfg = {
                         method: 'POST',
                         data: {
@@ -59,6 +65,7 @@ YCustom.later(10, window, function() {
                         },
                         on: {
                             success: function(tlid, response) {
+                                console.log('XHR RECIEVING');
                                 var res = response.response;
                                 var resO = Y.JSON.parse(res);
                                 if (resO.status == "error") {
@@ -72,6 +79,7 @@ YCustom.later(10, window, function() {
                             }
                         }
                     };
+                    console.log('XHR SENDING');
                     Y.io(SAVE_PREF_URL, cfg);
                 }
             }
