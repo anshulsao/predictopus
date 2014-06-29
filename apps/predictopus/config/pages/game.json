@@ -37,12 +37,22 @@
             {
                 "modules": [
                     {
-                        "module": "fifa/teams",
+                        "module": "ads/lrec",
                         "params": {                           
                         }
                     }
                 ],
                 "slot": "rslot1"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "fifa/teams",
+                        "params": {                           
+                        }
+                    }
+                ],
+                "slot": "rslot2"
             }
         ],
         "controller": "Page\\Game"
