@@ -1,5 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="<?php echo $jsUrl; ?>"></script>
+<script src="http:<?php echo $jsUrl; ?>"></script>
 <script id="module-inline-and-ads">
     var gptWrapper = {};
     YCustom.use('node', 'io', function(Y) {
