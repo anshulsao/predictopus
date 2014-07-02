@@ -22,7 +22,7 @@ class Controller_Ads extends \Controller_ModuleBase {
             'adImage' => 'http://static.playpredictopus.com/assets/img/veho.jpg'
         );
         $random = rand(1, 10);
-        if ($random <= 3) {
+        if ($random <= 5) {
             $modData = array(
                 'referral' => 'http://www.postergully.com/?referrer=playpredictopus',
                 'adImage' => 'http://static.playpredictopus.com/assets/img/postergully.jpg'
