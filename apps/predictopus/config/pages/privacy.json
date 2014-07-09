@@ -1,0 +1,19 @@
+{
+    "default": {
+        "title": "Privacy Policy",
+        "slots": [           
+            
+            {
+                "modules": [
+                    {
+                        "module": "staticpages/privacy",
+                        "params": {                           
+                        }
+                    }
+                ],
+                "slot": "leadslot1"
+            }
+        ]
+    }
+
+}

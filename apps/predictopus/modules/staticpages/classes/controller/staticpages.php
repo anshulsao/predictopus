@@ -16,6 +16,19 @@ class Controller_StaticPages extends \Controller_ModuleBase {
         );
         return $this->render($data);
     }
+    
+    public function action_privacy() {
+        $data = array(
+            "moduleId" => 'st-howtoplay',
+            "moduleClasses" => '',
+            "content" => \View::forge('privacy.html'),
+            "js" => array(''),
+            "css" => array('modules/staticpages/static-modal.css'),
+            "inlineJs" => '',
+            "head" => 'Privacy Policy'
+        );
+        return $this->render($data);
+    }
 
     public function action_home() {
         if(\GenUtility::isLoggedIn()){

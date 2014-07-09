@@ -7,6 +7,7 @@ return array(
     'dashboard' => 'main/index/mydashboard',
     'rules' => 'main/index/rules',
     'how-to-play' => 'main/index/howtoplay',
+    'privacy' => 'main/index/privacy',
     'world-cup/game/:gameid' => 'main/index/game',
     'combocss' => 'main/combo/css',
     'combojs' => 'main/combo/js',
