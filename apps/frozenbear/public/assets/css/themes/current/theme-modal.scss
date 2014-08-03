@@ -1,0 +1,119 @@
+@import "sass/_base.scss";
+
+body {
+    font: $font-family;
+    color: $font-color;
+    font-weight: $font-weight;
+    min-height: 100%;
+    background: $theme-bg;
+}
+
+.fb-icon-29px{
+    width: 27px;
+    height: 26px;
+    float: left;
+    background-image: url($cdn + "/assets/img/sprite.png?prod-23");
+    background-repeat: no-repeat;
+    background-position: -4px -2px;
+    background-size: 150px;
+    cursor: pointer;
+}
+.tw-icon-29px{
+    width: 27px;
+    height: 26px;
+    float: left;
+    background-image: url($cdn + "/assets/img/sprite.png?prod-23");
+    background-repeat: no-repeat;
+    background-position: -70px -2px;
+    background-size: 150px;
+    cursor: pointer;
+}
+.flag {
+    background:url($cdn + "/assets/img/flags.png"+ $version) no-repeat;
+    display: inline-block;
+    width: 42px; height: 28px;
+}
+
+.pdh-15{
+    padding:0px 15px;
+}
+
+.pd-15{
+    padding:15px;
+}
+.pd-0{
+    padding:0px!important;
+}
+.fl-right{
+    float: right;
+}
+.ls-none{
+    list-style: none;
+}
+.mg-vert-md{
+    margin: 10px 0px 10px 0px;
+}
+
+.fnt-neg{
+    color: $font-color-contrast;
+}
+
+.fnt-neg-info {
+    font-weight: bold;
+    font-style: italic;
+}
+.bg{
+    background: $bg-color;
+}
+
+.bg-neg{
+    background: $bg-color-contrast;
+}
+
+.of-hid{
+    overflow:hidden;
+}
+
+.text-mid{
+    text-align: center;
+}
+
+.module {
+    margin-top: 10px;
+}
+.mod-title{
+    padding: 4px 15px;
+    font-size: 16px;
+    font-weight: 100;
+    margin: 1px 0px;
+    text-align: left;
+}
+
+.fnt-h2 {
+    font-size: 25px!important;
+    font-weight: 200!important;
+}
+
+.mod-right-wrapper{
+    overflow: hidden;
+    border-radius: 5px;
+    padding: 5px;
+    background: #222;
+}
+
+.mod-right-separater{
+    width: 100%; 
+    height: 10px;
+}
+
+.sticky {
+    position: fixed !important;
+    z-index: 250;
+}
+
+#lrec div.module-content {
+    text-align: center;
+    background: #222;
+    padding: 10px;
+    border-radius: 5px;
+}
