@@ -1,0 +1,51 @@
+/* 
+    Created on : May 30, 2014, 12:26:51 AM
+    Author     : asao
+*/
+@import "../../themes/current/sass/_base.scss";
+
+#header {
+    margin-top:0px;
+    .logo img{
+        height: 50px;
+        top: 0px;
+        position: relative;
+        margin-right: 5px;
+    }
+
+    .logo span{
+        font-family: fantasy;
+        &:hover{
+            text-decoration: none;
+        }
+    }
+    .navbar-brand{
+        padding: 0px 15px;
+    }
+    img.lgn-profile-pic {
+        max-height: 40px;
+        position: relative;
+    }
+    .lgn-pp-cont{
+        padding:5px 10px;
+    }
+}
+
+body { 
+    padding-top: 50px; 
+}
+
+img.fb-login {
+    max-height: 40px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+span.lgn-mod-text {
+    margin-left: 20px;
+    font-style: oblique;
+    display: block;
+    margin-top: 30px;
+}
+div.modal-dialog {
+    margin-top: 100px!important;
+}

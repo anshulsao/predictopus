@@ -1,0 +1,11 @@
+{
+    "default": {
+        "title": "FrozenBear Home",
+        "slots": [            
+            {
+            }
+        ],
+        "controller": "Page\\HomePage"
+    }
+
+}

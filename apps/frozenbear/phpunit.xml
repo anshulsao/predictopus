@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true" stopOnFailure="false" bootstrap="../../fuelfwk/fuel/core/bootstrap_phpunit.php">
+	<php>
+		<server name="doc_root" value="./public"/>
+		<server name="app_path" value="../predictopus"/>
+		<server name="core_path" value="../../../fuelfwk/fuel/core/"/>
+		<server name="package_path" value="../../../fuelfwk/fuel/packages/"/>
+		<server name="vendor_path" value="../../../fuelfwk/fuel/vendors/"/>
+		<server name="FUEL_ENV" value="test"/>
+	</php>
+	<testsuites>
+		<testsuite name="app">
+			<directory suffix=".php">./tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

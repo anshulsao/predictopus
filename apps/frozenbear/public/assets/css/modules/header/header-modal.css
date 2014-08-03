@@ -1,0 +1,60 @@
+/* 
+    Created on : May 30, 2014, 12:26:51 AM
+    Author     : asao
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2014, 12:42:51 AM
+    Author     : asao
+*/
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2014, 12:43:15 AM
+    Author     : asao
+*/
+/**
+* Logo
+*/
+#header {
+  margin-top: 0px; }
+  #header .logo img {
+    height: 50px;
+    top: 0px;
+    position: relative;
+    margin-right: 5px; }
+  #header .logo span {
+    font-family: fantasy; }
+    #header .logo span:hover {
+      text-decoration: none; }
+  #header .navbar-brand {
+    padding: 0px 15px; }
+  #header img.lgn-profile-pic {
+    max-height: 40px;
+    position: relative; }
+  #header .lgn-pp-cont {
+    padding: 5px 10px; }
+
+body {
+  padding-top: 50px; }
+
+img.fb-login {
+  max-height: 40px;
+  margin-top: 10px;
+  cursor: pointer; }
+
+span.lgn-mod-text {
+  margin-left: 20px;
+  font-style: oblique;
+  display: block;
+  margin-top: 30px; }
+
+div.modal-dialog {
+  margin-top: 100px !important; }

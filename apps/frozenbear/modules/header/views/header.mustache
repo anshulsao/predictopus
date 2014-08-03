@@ -1,0 +1,65 @@
+<div class="modal fade fnt-neg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Sign in to FrozenBear to play.</h4>
+            </div>
+            <div class="modal-body text-mid">
+                <img src='/assets/img/fblgn.png?v=1' class='fb-login' id='fb-lgn-modal' >
+                <img src='/assets/img/twlgn.png?v=1' class='fb-login' id='tw-lgn-modal' >
+                <span class='lgn-mod-text'>We will never post anything without Permission. </span>
+            </div>            
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-7">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <div class="logo" >
+                <img src="/assets/img/logo_small.png">
+                <span>Frozen Bear</span>
+            </div></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-7">
+        <ul class="nav navbar-nav">
+            <li {{#isHome}}class="active"{{/isHome}}><a href="/">Home</a></li>           
+        </ul>        
+        <ul class="nav navbar-nav navbar-right">
+            {{#loggedIn}}            
+            <li>
+                <a href="" class="dropdown-toggle lgn-pp-cont" data-toggle="dropdown">
+                    <img src='{{profilePic}}' class='lgn-profile-pic'>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li role="presentation" class="dropdown-header">Hi {{name}}</li>
+                    <li class="divider"></li>
+                    <li><a href="" id='sign-out'>Sign out</a></li>
+                    <!--li class="divider"></li>
+                    <li><a href="#">Google</a></li-->
+                </ul>
+            </li>
+            {{/loggedIn}}
+            {{^loggedIn}}
+            <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="" id='lgn-fb'><b class="fb-icon-29px"></b>Facebook</a></li>
+                    <li><a href="" id='lgn-tw'><b class="tw-icon-29px"></b>Twitter</a></li>
+                    <!--li class="divider"></li>
+                    <li><a href="#">Google</a></li-->
+                </ul>
+            </li>
+            {{/loggedIn}}
+        </ul>
+    </div>
+
+
+</div>
