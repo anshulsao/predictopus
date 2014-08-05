@@ -6,6 +6,7 @@ body {
     font-weight: $font-weight;
     min-height: 100%;
     background: $theme-bg;
+    -webkit-font-smoothing: antialiased;
 }
 
 .fb-icon-29px{
@@ -117,3 +118,18 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
+
+.module{
+	border: solid thin #cacaca;
+	overflow: hidden;
+}
+
+.module-head{
+	padding: 8px;
+	background: #eee;
+	box-shadow: 0px 1px 1px 0px #c8c8c8;
+	margin-bottom: 5px;
+	color: #555;
+	font-weight: 500;
+}
+

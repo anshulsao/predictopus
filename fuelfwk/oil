@@ -32,7 +32,8 @@ define('DOCROOT', __DIR__.DIRECTORY_SEPARATOR);
 /**
  * Path to the application directory.
  */
-define('APPPATH', realpath(__DIR__.'/../apps/predictopus/').DIRECTORY_SEPARATOR);
+//define('APPPATH', realpath(__DIR__.'/../apps/predictopus/').DIRECTORY_SEPARATOR);
+define('APPPATH', realpath(__DIR__.'/../apps/frozenbear/').DIRECTORY_SEPARATOR);
 
 /**
  * Path to the default packages directory.

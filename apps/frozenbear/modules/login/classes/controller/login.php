@@ -101,7 +101,6 @@ class Controller_Login extends \Controller_ModuleBase {
                                 'uid' => $opauth->get('auth.uid', ''),
                             )
                     );
-                    self::addUserInSystem();
                     \Auth::remember_me();
                     break;
 
@@ -127,10 +126,7 @@ class Controller_Login extends \Controller_ModuleBase {
     }
 
     public static function addUserInSystem() {
-        // Add user to global league
-        $leagueid = \Fuel\Core\Config::get('global_league', 1);
-        \Model_UserDataModel::addUserToLeague($leagueid);
-        \Model_UserDataModel::initializeUserScores();
+        // Add user to global league       
     }
 
 }

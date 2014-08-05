@@ -1,8 +1,16 @@
 {
     "default": {
         "title": "FrozenBear Home",
-        "slots": [            
+        "slots": [
             {
+                "modules": [
+                    {
+                        "module": "tagcloud",
+                        "params": {
+                        }
+                    }
+                ],
+                "slot": "rslot1"
             }
         ],
         "controller": "Page\\HomePage"

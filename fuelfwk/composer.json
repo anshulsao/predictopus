@@ -21,7 +21,7 @@
         "monolog/monolog": "1.5.*",
     	"fuelphp/upload": "2.0.1",
         "mustache/mustache": "*",
-        "opauth/opauth": "0.4.*",
+        "opauth/opauth": "0.4.4",
         "opauth/facebook": "dev-master",
         "opauth/google": "dev-master",
         "opauth/github": "dev-master",

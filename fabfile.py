@@ -31,6 +31,9 @@ def install():
     sudo('apt-get install libapache2-mod-php5') 
     sudo('a2enmod rewrite')
 
+def restart():
+    sudo('service apache2 restart')
+
 def bootstrap():
 #    sudo('mkdir /var/code')
 #    sudo('git clone https://github.com/anshulsao/predictopus.git /var/code/')

@@ -42,6 +42,9 @@ class Auth_CustomOpauth extends Auth_Opauth {
             $this->response['auth']['info']['email'] = $this->get('auth.info.nickname') . "@twitterdummy.com";
             //logger(\Fuel\Core\Fuel::L_ERROR, print_r($this->response, 1), __METHOD__);
         }
+        if (strcasecmp($this->get('auth.provider'), 'facebook') === 0) {
+            $this->response['auth']['info']['nickname'] = $this->get('auth.info.first_name');
+        }
     }
 
 }

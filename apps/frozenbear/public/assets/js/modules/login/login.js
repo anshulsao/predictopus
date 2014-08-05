@@ -59,7 +59,7 @@ YCustom.later(10, window, function() {
             var top = (winObj.get('winHeight') - height) / 2
                     , left = (winObj.get('winWidth') - width) / 2
                     ;
-            var signinWin = window.open(url, 'Login_to_Predictopus', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=' + height + ',width=' + width + ',top=' + top + ',left=' + left);
+            var signinWin = window.open(url, 'Login_to_Frozen_Bear', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=' + height + ',width=' + width + ',top=' + top + ',left=' + left);
             signinWin.focus();
         }
 

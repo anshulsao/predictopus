@@ -23,14 +23,16 @@
         </button>
         <a class="navbar-brand" href="/">
             <div class="logo" >
-                <img src="/assets/img/logo_small.png">
+                <img src="http://upload.wikimedia.org/wikipedia/en/thumb/8/8c/Deep_freeze.png/64px-Deep_freeze.png">
                 <span>Frozen Bear</span>
             </div></a>
     </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-7">
-        <ul class="nav navbar-nav">
-            <li {{#isHome}}class="active"{{/isHome}}><a href="/">Home</a></li>           
-        </ul>        
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-7">  
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search all your friends...">
+            </div>            
+        </form>
         <ul class="nav navbar-nav navbar-right">
             {{#loggedIn}}            
             <li>
