@@ -24,31 +24,18 @@ class Model_Base extends \Fuel\Core\Model {
     const SOLR_POPULAR_URL_BASE = '/select';
     const SOLR_SIMILAR_ARTICLE_URL_BASE = '/mlt';
 
-    protected $servers;
-    protected $tempHash;
+    protected static $servers = '';
+    protected static $tempHash;
 
     public function __construct() {
-        $this->servers = \Fuel\Core\Config::get('servers');
+        self::$servers = \Fuel\Core\Config::get('servers');
     }
 
-    /**
-     * 
-     * @param type $host
-     * @param type $urlFragment
-     * @param type $method GET, POST etc
-     * @param type $headers array of headers in key => value format
-     * @param type $params array of params to be passed in key => value format
-     */
-    protected function callWebserviceThroughCache($host, $urlFragment, $method,
-            $headers, $params) {
-        $warnishHost = $this->servers['Warnish'];
-        logger(\Fuel\Core\Fuel::L_DEBUG, "*** Going Through Warnish ***",
-                __METHOD__);
-        $hostFragments = explode('/', $host);
-        $headers[self::HOST_HEADER_KEY] = $hostFragments[2];
-        $host = $warnishHost;
-        $url = $host . $urlFragment;
-        return $this->callWebservice($url, $method, $headers, $params);
+    public static function getServers() {
+        if (empty(self::$servers)) {
+            self::$servers = \Fuel\Core\Config::get('servers');
+        }
+        return self::$servers;
     }
 
     /**
@@ -58,8 +45,7 @@ class Model_Base extends \Fuel\Core\Model {
      * @param type $headers array of headers in key => value format
      * @param type $params array of params to be passed in key => value format
      */
-    protected function callWebservice($url, $method, $headers, $params,
-            $isThroughCache = true) {
+    protected static function callWebservice($url, $method, $headers, $params) {
 
         $isTimed = Fuel\Core\Config::get('timermode');
         if ($isTimed) {
@@ -67,16 +53,8 @@ class Model_Base extends \Fuel\Core\Model {
         }
         $arh = apache_request_headers();
         $hashResponse = false;
-        if (!array_key_exists('ZAP2IT-GET-FRESH-CONTENTS', $arh)) {
-            $hashResponse = $this->checkInRequestHash($url, $method, $headers,
-                    $params);
-        } else {
-            logger(\Fuel\Core\Fuel::L_DEBUG,
-                    "ZAP2IT-GET-FRESH-CONTENTS detected in the http header!",
-                    __METHOD__);
-            $isThroughCache = true;
-        }
-
+        $hashResponse = self::checkInRequestHash($url, $method, $headers,
+                        $params);
         \Profiler::mark(__METHOD__ . ': REQUEST: Start of ' . $url);
         if ($hashResponse) {
             logger(\Fuel\Core\Fuel::L_DEBUG, "RETURNING FROM REQUEST HASH",
@@ -85,69 +63,33 @@ class Model_Base extends \Fuel\Core\Model {
             return $hashResponse;
         }
         $urlOld = $url;
-        if ($isThroughCache) {
-            $urlFragments = explode('/', $url);
-            $host = $urlFragments[2];
-            $warnishHost = $this->servers['Warnish'];
-            logger(\Fuel\Core\Fuel::L_DEBUG,
-                    "***** Going Through Warnish *** $host", __METHOD__);
-            $headers[self::HOST_HEADER_KEY] = $host;
-            $url = str_replace($host, $warnishHost, $url);
-        }
         $curl = \Fuel\Core\Request::forge($url, 'curl');
         logger(\Fuel\Core\Fuel::L_INFO, "Params: " . json_encode($params),
                 __METHOD__);
         $curl->set_method($method);
-        /* $curl->set_options(array(
-          'PROXY' => 'localhost',
-          'PROXYPORT' => '8887'
-          )); */
         foreach ($headers as $key => $value) {
             $curl->set_header($key, $value);
         }
-        if (array_key_exists('ZAP2IT-GET-FRESH-CONTENTS', $arh)) {
-            $curl->set_header('ZAP2IT-GET-FRESH-CONTENTS', true);
-        }
-
         $curl->set_params($params);
         try {
             $response = $curl->execute()->response();
+            logger(\Fuel\Core\Fuel::L_DEBUG,
+                    '200 ' . self::getPrettyUrl($url, $params), __METHOD__);
         } catch (\Fuel\Core\RequestStatusException $e) {
             logger(\Fuel\Core\Fuel::L_ERROR,
                     '4XX ' . self::getPrettyUrl($url, $params) . "   " . $e->getMessage(),
                     __METHOD__);
-
-            return new \Zap2it\Response('400');
+            return new \App\WSResponse('400');
         } catch (\Fuel\Core\RequestException $e) {
             logger(\Fuel\Core\Fuel::L_ERROR,
                     '500 ' . self::getPrettyUrl($url, $params) . "   " . $e->getMessage(),
                     __METHOD__);
-            try {
-                if (\Fuel\Core\Config::get('log_to_cw', false)) {
-                    $cwClient = GenUtility::getCloudWatchClient();
-                    $cwClient->putMetricData(array(
-                        'Namespace' => 'Zap2it/Frontend',
-                        'MetricData' => array(
-                            array(
-                                'MetricName' => '500 Server Error',
-                                'Timestamp' => time(),
-                                'Value' => 1,
-                                'Unit' => 'Count',
-                                'Dimensions' => array(array('Name' => 'Env', 'Value' => \Fuel\Core\Fuel::$env)),
-                            ),
-                        ),
-                    ));
-                }
-            } catch (Exception $e) {
-                logger(\Fuel\Core\Fuel::L_ERROR, print_r($e->getMessage(), true));
-            }
-
-            return new \Zap2it\Response('500');
+            return new \App\WSResponse('500');
         }
 
-        $retResponse = new \Zap2it\Response($response->status,
+        $retResponse = new \App\WSResponse($response->status,
                 $response->headers, $response->body);
-        $this->storeInRequestHash($urlOld, $method, $headers, $params,
+        self::storeInRequestHash($urlOld, $method, $headers, $params,
                 $retResponse);
         \Profiler::mark(__METHOD__ . ': REQUEST: End of ' . $url);
         if ($isTimed) {
@@ -159,7 +101,7 @@ class Model_Base extends \Fuel\Core\Model {
         return $retResponse;
     }
 
-    public function callWebservices($requests, $isThroughCache = true) {
+    public static function callWebservices($requests, $isThroughCache = true) {
         //$isThroughCache = false;
         $arh = apache_request_headers();
         $isTimed = Fuel\Core\Config::get("timermode");
@@ -181,7 +123,7 @@ class Model_Base extends \Fuel\Core\Model {
             $params = $request['params'];
             $key = $request['key'];
 
-            switch ($method){
+            switch ($method) {
                 case 'GET':
                 case 'POST':
                     break;
@@ -192,8 +134,8 @@ class Model_Base extends \Fuel\Core\Model {
 
             $hashResponse = false;
             if (!array_key_exists('ZAP2IT-GET-FRESH-CONTENTS', $arh)) {
-                $hashResponse = $this->checkInRequestHash($url, $method,
-                        $headers, $params);
+                $hashResponse = self::checkInRequestHash($url, $method,
+                                $headers, $params);
             } else {
                 logger(\Fuel\Core\Fuel::L_DEBUG,
                         "ZAP2IT-GET-FRESH-CONTENTS detected in the http header!",
@@ -202,8 +144,7 @@ class Model_Base extends \Fuel\Core\Model {
             }
 
             \Profiler::mark(__METHOD__ . ": REQUEST MULTICURL: Start of $key - $url");
-            $hashes[$key] = $this->calculateHash($url, $method, $headers,
-                    $params);
+            $hashes[$key] = self::calculateHash($url, $method, $headers, $params);
             if ($hashResponse) {
                 logger(\Fuel\Core\Fuel::L_DEBUG, "RETURNING FROM REQUEST HASH",
                         __METHOD__);
@@ -213,7 +154,7 @@ class Model_Base extends \Fuel\Core\Model {
             if ($isThroughCache) {
                 $urlFragments = explode('/', $url);
                 $host = $urlFragments[2];
-                $warnishHost = $this->servers['Warnish'];
+                $warnishHost = self::$servers['Warnish'];
                 logger(\Fuel\Core\Fuel::L_DEBUG,
                         "***** Going Through Warnish *** $host", __METHOD__);
                 $headers[self::HOST_HEADER_KEY] = $host;
@@ -233,12 +174,12 @@ class Model_Base extends \Fuel\Core\Model {
         foreach ($response as $key => $res) {
             //TODO handle error case
             if (!empty($res['error'])) {
-                $responses[$key] = new \Zap2it\Response('500', '', $res['error']);
+                $responses[$key] = new \App\WSResponse('500', '', $res['error']);
             } else {
 
-                $responses[$key] = new \Zap2it\Response('200', '',
+                $responses[$key] = new \App\WSResponse('200', '',
                         $res['response']);
-                $this->storeInRequestHashRaw($hashes[$key], $responses[$key]);
+                self::storeInRequestHashRaw($hashes[$key], $responses[$key]);
             }
             \Profiler::mark(__METHOD__ . ': REQUEST MULTICURL: End of ' . $key);
         }
@@ -250,14 +191,14 @@ class Model_Base extends \Fuel\Core\Model {
         return $responses;
     }
 
-    protected function storeInRequestHashRaw($hash, $value) {
+    protected static function storeInRequestHashRaw($hash, $value) {
         $request = \Fuel\Core\Request::active();
         $parentRequest = $request->parent();
         $parentRequest = isset($parentRequest) ? $request->parent() : $request;
-        $requests = $this->getValueSafelyArr($parentRequest->named_params,
-                "requestsHash", null);
+        $requests = self::getValueSafelyArr($parentRequest->named_params,
+                        "requestsHash", null);
         logger(\Fuel\Core\Fuel::L_DEBUG,
-                "REQUEST CACHE: Storing response in request hash $this->tempHash",
+                "REQUEST CACHE: Storing response in request hash self::tempHash",
                 __METHOD__);
         if (isset($requests)) {
             $requests[$hash] = $value;
@@ -269,31 +210,32 @@ class Model_Base extends \Fuel\Core\Model {
         return true;
     }
 
-    protected function storeInRequestHash($url, $method, $headers, $params,
-            $value) {
-        $hash = $this->calculateHash($url, $method, $headers, $params);
-        //logger(\Fuel\Core\Fuel::L_ERROR, $this->getPrettyUrl($url, $params). "--" .$hash, __METHOD__);
-        return $this->storeInRequestHashRaw($hash, $value);
+    protected static function storeInRequestHash($url, $method, $headers,
+            $params, $value) {
+        $hash = self::calculateHash($url, $method, $headers, $params);
+        //logger(\Fuel\Core\Fuel::L_ERROR, self::getPrettyUrl($url, $params). "--" .$hash, __METHOD__);
+        return self::storeInRequestHashRaw($hash, $value);
     }
 
-    protected function checkInRequestHash($url, $method, $headers, $params) {
-        $hash = $this->calculateHash($url, $method, $headers, $params);
-        //logger(\Fuel\Core\Fuel::L_ERROR, $this->getPrettyUrl($url, $params). '  CHK  ' .$hash, __METHOD__);
+    protected static function checkInRequestHash($url, $method, $headers,
+            $params) {
+        $hash = self::calculateHash($url, $method, $headers, $params);
+        //logger(\Fuel\Core\Fuel::L_ERROR, self::getPrettyUrl($url, $params). '  CHK  ' .$hash, __METHOD__);
         $request = \Fuel\Core\Request::active();
         $parentRequest = $request->parent();
         $parentRequest = isset($parentRequest) ? $request->parent() : $request;
-        $requests = $this->getValueSafelyArr($parentRequest->named_params,
-                "requestsHash", null);
+        $requests = self::getValueSafelyArr($parentRequest->named_params,
+                        "requestsHash", null);
         if (isset($requests) && isset($requests[$hash])) {
             logger(\Fuel\Core\Fuel::L_DEBUG,
-                    "REQUEST CACHE: Found response in request hash for $this->tempHash",
+                    "REQUEST CACHE: Found response in request hash for self::tempHash",
                     __METHOD__);
             return $requests[$hash];
         }
         return false;
     }
 
-    protected function calculateHash($url, $method, $headers, $params) {
+    protected static function calculateHash($url, $method, $headers, $params) {
         $headersString = '';
         $paramsString = '';
         sort($headers);
@@ -307,7 +249,7 @@ class Model_Base extends \Fuel\Core\Model {
         // removing header in hash string
         $hashString = $url . $method . $paramsString;
         $hash = md5($hashString);
-        $this->tempHash = $hashString;
+        self::$tempHash = $hashString;
         return $hash;
     }
 
@@ -321,7 +263,7 @@ class Model_Base extends \Fuel\Core\Model {
      *
      * @return string
      */
-    public function getValueSafely($object, $key, $default = '') {
+    public static function getValueSafely($object, $key, $default = '') {
         if (isset($object) && isset($object->{$key})) {
             return $object->{$key};
         }
@@ -344,10 +286,9 @@ class Model_Base extends \Fuel\Core\Model {
      *
      * @return string
      */
-    public function getValueSafelyArr($array, $keys, $default = '',
+    public static function getValueSafelyArr($array, $keys, $default = '',
             $splitter = ',') {
-        return GenUtility::getValueSafelyArr($array, $keys, $default,
-                        $splitter);
+        return GenUtility::getValueSafelyArr($array, $keys, $default, $splitter);
     }
 
 }

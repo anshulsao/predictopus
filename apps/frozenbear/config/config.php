@@ -11,6 +11,10 @@
  * @link       http://fuelphp.com
  */
 return array(
+    'servers' => array(
+        'Backend' => 'http://ec2-54-187-45-229.us-west-2.compute.amazonaws.com',
+        'Disqus' => 'https://disqus.com/api/3.0/'
+    ),
     /**
      * base_url - The base URL of the application.
      * MUST contain a trailing slash (/)

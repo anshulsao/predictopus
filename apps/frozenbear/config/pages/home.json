@@ -11,6 +11,16 @@
                     }
                 ],
                 "slot": "rslot1"
+            },
+            {
+                "modules": [
+                    {
+                        "module": "stream",
+                        "params": {
+                        }
+                    }
+                ],
+                "slot": "lslot1"
             }
         ],
         "controller": "Page\\HomePage"

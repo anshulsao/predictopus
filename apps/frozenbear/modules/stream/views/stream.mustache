@@ -1,0 +1,24 @@
+<ol class="nolist">
+    {{#stream}}
+    <li class="stream-item">
+        <div class="stream-tag-card">
+            <div class="stream-user-msg">
+                <img class="img-medium" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t1.0-1/c170.50.621.621/s320x320/390363_2026955012947_462734284_n.jpg">
+                <img class="img-medium" src="https://cdn0.iconfinder.com/data/icons/design-retinaicon-set/53/Design_061-512.png">
+                <img class="img-medium" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/v/t1.0-1/c0.0.320.320/p320x320/1797554_10154347134270574_958504810792320262_n.jpg?oh=9f2240c37d73d7fd8f2d06346b8897e1&oe=5459800E&__gda__=1414634393_b26e608206fb3e57e1d99220a7d9425b">                                
+            </div>            
+            <div class="stream-tag">    
+                <span>
+                    <a class="usr-prof-link">{{#by_mini_user}}{{name}}{{/by_mini_user}}</a>
+                    <span class="stamped">stamped</span>
+                    <a class="usr-prof-link">{{#to_mini_user}}{{name}}{{/to_mini_user}}</a>
+                </span>
+                <span>
+                    <a class="verb">{{verb_name}}</a>
+                    <a class="noun">{{noun_name}}</a>
+                </span>
+            </div>
+        </div>
+    </li>
+    {{/stream}}
+</ol>

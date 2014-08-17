@@ -1,0 +1,13 @@
+img.img-medium {
+  max-width: 50px;
+  border-radius: 11px;
+  margin-right: 10px; }
+
+.stream-user-msg {
+  background: #D7EFE1;
+  padding: 10px;
+  width: 208px; }
+
+.stream-item a {
+  font-weight: 500;
+  font-size: 120%; }

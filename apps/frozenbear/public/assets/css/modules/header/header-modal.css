@@ -43,6 +43,8 @@ and open the template in the editor.
       border: 0;
       outline: 0;
       font-weight: 200; }
+    #header .navbar-form .form-group {
+      position: relative; }
   #header .navbar-nav > li > a {
     padding-top: 10px;
     padding-bottom: 10px; }
@@ -82,3 +84,31 @@ span.lgn-mod-text {
 
 div.modal-dialog {
   margin-top: 100px !important; }
+
+div#result-holder {
+  position: fixed;
+  background: white;
+  border: solid thin #c8c8c8;
+  border-radius: 0px 0px 5px 5px;
+  width: 400px;
+  z-index: 30; }
+
+img.srl-pic {
+  max-height: 30px; }
+
+li.srl-item {
+  padding: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
+
+li.srl-item:hover {
+  background: #A0D7F1; }
+
+span.srl-name {
+  font-weight: 800;
+  color: #333; }
+
+a.srl-link:hover {
+  text-decoration: none; }

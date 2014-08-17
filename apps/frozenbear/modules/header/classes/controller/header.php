@@ -35,11 +35,25 @@ class Controller_Header extends \Controller_ModuleBase {
             "moduleId" => 'header',
             "moduleClasses" => '',
             "content" => \View::forge('header.mustache', $modData),
-            "js" => array('modules/login/login.js'),
+            "js" => array('modules/login/login.js', 'modules/search/search.js'),
             "css" => array(),
             "inlineJs" => '',
         );
         return $this->render($data);
+    }
+
+    public function action_xhrsearch() {
+        $query = $this->getParam('q');
+        $response = \Model_SearchModel::searchMixed($query);
+        if ($response->getStatus() != '200') {
+            return $this->jsonErrorMsg('Error in backend');
+        }
+        $searchResults = $response->getBodyObjectJSON();
+        //logger(\Fuel\Core\Fuel::L_ERROR, print_r($streamData, 1), __METHOD__);
+        $modData = array(
+            'search' => $searchResults
+        );
+        return $this->jsonSuccess($modData);
     }
 
 }

@@ -1,0 +1,10 @@
+{
+    "default": {
+        "title": "Not Found",
+        "slots": [           
+            
+        ],
+        "controller": "Page\\HomePage"
+    }
+
+}

@@ -75,7 +75,7 @@ class ModuleTDV {
                modulePath: "$path",
                moduleParams: $params
            }
-           new Y.zap2it.services.ModuleLazyLoader(config);
+           new Y.services.ModuleLazyLoader(config);
 JS;
         return $js;
     }

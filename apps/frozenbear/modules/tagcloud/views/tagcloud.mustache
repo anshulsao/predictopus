@@ -1,28 +1,5 @@
 <div id="wordcloud1" class="wordcloud">
-    <span data-weight="2" style="display: none;">Puma</span>
-	<span data-weight="5" style="display: none;">Papa kehte hain</span>
-    <span data-weight="3" style="display: none;">L.G.</span>
-	<span data-weight="8" style="display: none;">Macbook</span>
-    <span data-weight="14" style="display: none;">Javascript</span>
-	<span data-weight="19" style="display: none;">Java</span>
-    <span data-weight="10" style="display: none;">Yahoo</span>
-	<span data-weight="11" style="display: none;">Tribune</span>
-    <span data-weight="1" style="display: none;">Tejas Networks</span>
-	<span data-weight="19" style="display: none;">Andaz Apna Apna</span>
-    <span data-weight="10" style="display: none;">Goa</span>
-	<span data-weight="11" style="display: none;">Ladakh</span>
-    <span data-weight="1" style="display: none;">Bilaspur</span>
-	<span data-weight="15" style="display: none;">IIT Kharagpur</span>
-	<span data-weight="18" style="display: none;">Kolkata</span>
-	<span data-weight="18" style="display: none;">Kareena Kapoor</span>
-	<span data-weight="18" style="display: none;">Katrina Kaif</span>
-	<span data-weight="18" style="display: none;">Urmila</span>
-	<span data-weight="18" style="display: none;">Beer</span>
-	
-    <span data-weight="11" style="display: none;">House M.D.</span>
-	<span data-weight="12" style="display: none;">F.R.I.E.N.D.S</span>
-	<span data-weight="7" style="display: none;">Lost</span>
-	<span data-weight="3" style="display: none;">Iron Man</span>
-	
-    <canvas id="awesomeCloudwordcloud2" width="98%" height="350" style="visibility: visible; display: block; position: relative; z-index: 100; width: 98%; height: 350px;"></canvas>
+    {{#tags}}
+    <span data-weight="{{count}}" >{{tag_name}}</span>	
+    {{/tags}}    
 </div>

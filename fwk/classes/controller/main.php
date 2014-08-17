@@ -402,7 +402,7 @@ class Controller_Main extends Controller_Base {
             "markup" => utf8_encode($markup),
             "inline" => $inlineJS,
             "js" => $jsUrl
-        );        
+        );   
         $templateDataEncoded = json_encode($templateData);
         //logger(\Fuel\Core\Fuel::L_DEBUG, print_r($templateDataEncoded, 1),
         //      __METHOD__);
@@ -412,7 +412,7 @@ class Controller_Main extends Controller_Base {
             return $response;
         }
 
-        $view = \Fuel\Core\View::forge('base/rmp_full', $templateData, false);
+        $view = \Fuel\Core\View::forge('base/rmp_full', $templateData);
         return Fuel\Core\Response::forge($view);
     }
 
