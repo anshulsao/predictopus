@@ -66,14 +66,14 @@ return array(
      */
     'Strategy' => array(
         'Facebook' => array(
-            'app_id' => '311171435643838',
-            'app_secret' => 'e5b643eab65b6ee300f1af1156ad78b7',
+            'app_id' => '43838',
+            'app_secret' => 'ad78b7',
             'scope' => 'email',
             'display' => 'popup'
         ),
         'Twitter' => array(
-            'key' => 'PJhHXmJdidT9IbxcH4Doju4pO',
-            'secret' => 'UKPrgsNwGh3qOqDWjJkqfZsoMSIBuSM2FTiadwELp4IYtv85wi'
+            'key' => '4pO',
+            'secret' => '4IYtv85wi'
         ),
     )
 );
